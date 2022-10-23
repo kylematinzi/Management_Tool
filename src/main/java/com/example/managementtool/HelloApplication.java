@@ -11,6 +11,8 @@ import java.io.IOException;
  * To start this project I am starting with the GUI screens. After that I will set up and connect a database
  * to hold all the data that will fill the screens. From there I will create the functions that will enable
  * manipulation of the data in various ways through the GUI.
+ *
+ * Testing a new commit
  */
 public class HelloApplication extends Application {
     @Override
