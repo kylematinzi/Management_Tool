@@ -27,7 +27,7 @@
       <TextField layoutX="364.0" layoutY="287.0" />
       <PasswordField layoutX="364.0" layoutY="350.0" />
       <Label layoutX="362.0" layoutY="420.0" text="Forgot Username / Password" />
-      <Button layoutX="416.0" layoutY="385.0" mnemonicParsing="false" text="Login" />
-      <Button layoutX="840.0" layoutY="560.0" mnemonicParsing="false" text="Close" />
+      <Button fx:id="loginButton" layoutX="416.0" layoutY="385.0" mnemonicParsing="false" onAction="#loginButtonPressed" text="Login" />
+      <Button fx:id="closeButton" layoutX="840.0" layoutY="560.0" mnemonicParsing="false" onAction="#closeButtonPressed" text="Close" />
    </children>
 </AnchorPane>
