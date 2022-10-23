@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.managementtool.NewProjectScreenController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d9d9d9" height="68.0" stroke="TRANSPARENT" strokeType="INSIDE" width="900.0" />
+      <Label layoutX="280.0" layoutY="7.0" text="Create New Project">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <ListView layoutX="558.0" layoutY="156.0" prefHeight="283.0" prefWidth="313.0" />
+      <Button layoutX="840.0" layoutY="560.0" mnemonicParsing="false" text="Close" />
+      <Button layoutX="779.0" layoutY="560.0" mnemonicParsing="false" text="Create" />
+      <Button layoutX="738.0" layoutY="119.0" mnemonicParsing="false" text="Assign Team Member" />
+      <ComboBox layoutX="558.0" layoutY="119.0" prefWidth="150.0" promptText="Select Member" />
+      <TextField layoutX="54.0" layoutY="119.0" prefHeight="25.0" prefWidth="175.0" />
+      <DatePicker layoutX="54.0" layoutY="225.0" />
+      <Label layoutX="54.0" layoutY="90.0" text="Project Title: ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="54.0" layoutY="191.0" text="Projected Completion Date: ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="558.0" layoutY="90.0" text="Team Members: ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="558.0" layoutY="450.0" mnemonicParsing="false" text="View" />
+      <Button layoutX="612.0" layoutY="450.0" mnemonicParsing="false" text="Remove" />
+      <Label layoutX="54.0" layoutY="298.0" text="Project Description: ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextArea layoutX="54.0" layoutY="325.0" prefHeight="200.0" prefWidth="395.0" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.managementtool.UserDetailsScreenController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d9d9d9" height="68.0" stroke="TRANSPARENT" strokeType="INSIDE" width="900.0" />
+      <Label layoutX="349.0" layoutY="7.0" text="User Details">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <Button layoutX="840.0" layoutY="360.0" mnemonicParsing="false" text="Close" />
+      <Pane layoutX="48.0" layoutY="85.0" prefHeight="287.0" prefWidth="337.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#481fff00" height="287.0" stroke="BLACK" strokeType="INSIDE" width="337.0" />
+            <Label layoutX="20.0" layoutY="25.0" text="Name: ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="90.0" text="Employee ID: ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="159.0" text="Job Title: ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="224.0" text="Email Address: ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="170.0" layoutY="25.0" text="Name">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="170.0" layoutY="90.0" text="ID">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="170.0" layoutY="159.0" text="Title">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="170.0" layoutY="224.0" text="Address">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="495.0" layoutY="119.0" prefHeight="200.0" prefWidth="368.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="200.0" layoutX="1.0" stroke="BLACK" strokeType="INSIDE" width="368.0" />
+            <Label layoutX="16.0" layoutY="44.0" text="Total Assigned Projects: ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="115.0" text="Total Assigned Tickets: ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="253.0" layoutY="115.0" text="#####">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="253.0" layoutY="44.0" text="#####">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
