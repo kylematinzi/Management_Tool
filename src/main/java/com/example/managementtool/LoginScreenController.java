@@ -24,7 +24,7 @@ public class LoginScreenController implements Initializable {
 
     public void loginButtonPressed (ActionEvent actionEvent) throws IOException {
         StackPane adminDashboardParent = new StackPane();
-        adminDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("AdminDashboard.fxml")));
+        adminDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("adminDashboard.fxml")));
         Scene scene = new Scene(adminDashboardParent);
         Stage adminDashboardScene = new Stage();
         adminDashboardScene.setScene(scene);
