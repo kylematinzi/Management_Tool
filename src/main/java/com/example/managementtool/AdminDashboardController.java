@@ -18,20 +18,48 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     private Button closeButton;
-
     @FXML
     private Button ticketDetailsButton;
-
     @FXML
     private Button createNewTicketButton;
-
     @FXML
     private Button deleteTicketButton;
+    @FXML
+    private Button usersButton;
+    @FXML
+    private Button ProjectsButton;
+
+    public void projectsButtonPressed(ActionEvent actionEvent) throws IOException {
+        StackPane projectDashboardParent = new StackPane();
+        projectDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("allProjectsScreen.fxml")));
+        Scene scene = new Scene(projectDashboardParent);
+        Stage projectDashboardScene = new Stage();
+        projectDashboardScene.setScene(scene);
+        projectDashboardScene.initModality(Modality.WINDOW_MODAL);
+        projectDashboardScene.initOwner(((((Button)actionEvent.getSource()).getScene().getWindow())));
+        projectDashboardScene.sizeToScene();
+        projectDashboardScene.setResizable(false);
+        projectDashboardScene.setTitle("Project Management System");
+        projectDashboardScene.show();
+    }
+
+    public void usersButtonPressed(ActionEvent actionEvent) throws IOException {
+        StackPane usersParent = new StackPane();
+        usersParent.getChildren().add(FXMLLoader.load(getClass().getResource("userDetailDashboard.fxml")));
+        Scene scene = new Scene(usersParent);
+        Stage newUsersScene = new Stage();
+        newUsersScene.setScene(scene);
+        newUsersScene.initModality(Modality.WINDOW_MODAL);
+        newUsersScene.initOwner(((((Button)actionEvent.getSource()).getScene().getWindow())));
+        newUsersScene.sizeToScene();
+        newUsersScene.setResizable(false);
+        newUsersScene.setTitle("Project Management System");
+        newUsersScene.show();
+    }
 
     public void projectDetailsButtonPressed(ActionEvent actionEvent) throws IOException {
-        // TODO need to create a project details/update screen
         StackPane projectDashboardParent = new StackPane();
-        projectDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("NewProjectScreen.fxml")));
+        projectDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("projectDashboard.fxml")));
         Scene scene = new Scene(projectDashboardParent);
         Stage projectDashboardScene = new Stage();
         projectDashboardScene.setScene(scene);
