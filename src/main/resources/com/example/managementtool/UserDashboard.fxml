@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.managementtool.AdminDashboardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.managementtool.UserDashboardController">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d8d9d9" height="600.0" stroke="TRANSPARENT" strokeType="INSIDE" width="233.0" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d9d9d9" height="68.0" stroke="TRANSPARENT" strokeType="INSIDE" width="900.0" />
@@ -31,14 +31,12 @@
             <ToggleGroup fx:id="ticketToggleGroup" />
          </toggleGroup></RadioButton>
         <RadioButton layoutX="693.0" layoutY="325.0" mnemonicParsing="false" selected="true" text="All Tickets" toggleGroup="$ticketToggleGroup" />
-        <Button layoutX="485.0" layoutY="247.0" mnemonicParsing="false" text="Delete" />
-        <Button layoutX="404.0" layoutY="247.0" mnemonicParsing="false" text="Update" />
-        <Button layoutX="336.0" layoutY="247.0" mnemonicParsing="false" text="Create" />
-        <Button layoutX="485.0" layoutY="562.0" mnemonicParsing="false" text="Delete" />
-        <Button layoutX="405.0" layoutY="562.0" mnemonicParsing="false" text="Update" />
-        <Button layoutX="336.0" layoutY="562.0" mnemonicParsing="false" text="Create" />
-        <Button layoutX="273.0" layoutY="247.0" mnemonicParsing="false" text="View" />
-        <Button layoutX="273.0" layoutY="562.0" mnemonicParsing="false" text="View" />
+        <Button fx:id="deleteProjectButton" layoutX="496.0" layoutY="247.0" mnemonicParsing="false" onAction="#deleteProjectButtonPressed" text="Delete" />
+        <Button fx:id="createNewProjectButton" layoutX="372.0" layoutY="247.0" mnemonicParsing="false" onAction="#createNewProjectButtonPressed" text="Create New Project" />
+        <Button fx:id="deleteTicketButton" layoutX="490.0" layoutY="562.0" mnemonicParsing="false" onAction="#deleteTicketButtonPressed" text="Delete" />
+        <Button fx:id="createNewTicketButton" layoutX="365.0" layoutY="562.0" mnemonicParsing="false" onAction="#createNewTicketButtonPressed" text="Create New Ticket" />
+        <Button fx:id="projectDetailsButton" layoutX="273.0" layoutY="247.0" mnemonicParsing="false" onAction="#projectDetailsButtonPressed" text="Project Details" />
+        <Button fx:id="ticketDetailsButton" layoutX="273.0" layoutY="562.0" mnemonicParsing="false" onAction="#ticketDetailsButtonPressed" text="Ticket Details" />
         <Label layoutX="315.0" layoutY="7.0" text="User Dashboard" textAlignment="CENTER">
             <font>
                 <Font name="System Bold" size="36.0" />
