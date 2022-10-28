@@ -35,9 +35,8 @@ public class UserDetailDashboardController {
     }
 
     public void createUserButtonPressed(ActionEvent actionEvent) throws IOException {
-        // TODO create a create new user screen
         StackPane userDetailParent = new StackPane();
-        userDetailParent.getChildren().add(FXMLLoader.load(getClass().getResource("UserDetailsScreen.fxml")));
+        userDetailParent.getChildren().add(FXMLLoader.load(getClass().getResource("CreateNewUserScreen.fxml")));
         Scene scene = new Scene(userDetailParent);
         Stage userDetailScene = new Stage();
         userDetailScene.setScene(scene);

@@ -8,7 +8,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.managementtool.CreateNewUserScreenController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d9d9d9" height="68.0" stroke="TRANSPARENT" strokeType="INSIDE" width="900.0" />
@@ -48,6 +47,6 @@
       <ComboBox layoutX="450.0" layoutY="266.0" prefWidth="150.0" promptText="Select Title" />
       <TextField layoutX="450.0" layoutY="313.0" />
       <Button layoutX="789.0" layoutY="360.0" mnemonicParsing="false" text="Save" />
-      <Button layoutX="840.0" layoutY="360.0" mnemonicParsing="false" text="Close" />
+      <Button fx:id="closeButton" layoutX="840.0" layoutY="360.0" mnemonicParsing="false" onAction="#closeButtonPressed" text="Close" />
    </children>
 </AnchorPane>

@@ -15,6 +15,9 @@ import java.io.IOException;
  * manipulation of the data in various ways through the GUI.
  *
  */
+//TODO Add docker
+//TODO Create AWS database
+//TODO Install AWS toolkit for database access
 public class HelloApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
