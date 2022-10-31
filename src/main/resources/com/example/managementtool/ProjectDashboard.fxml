@@ -57,6 +57,7 @@
             <Label layoutX="120.0" layoutY="133.0" text="Label" />
          </children>
       </Pane>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="236.0" layoutX="18.0" layoutY="335.0" stroke="BLACK" strokeType="INSIDE" width="395.0" />
       <Label layoutX="28.0" layoutY="335.0" text="Team Members:">
          <font>
             <Font size="18.0" />
@@ -88,7 +89,6 @@
          </font>
       </Label>
       <DatePicker layoutX="232.0" layoutY="249.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="236.0" layoutX="18.0" layoutY="335.0" stroke="BLACK" strokeType="INSIDE" width="395.0" />
       <Button layoutX="350.0" layoutY="287.0" mnemonicParsing="false" text="Change" />
       <TextArea layoutX="482.0" layoutY="396.0" prefHeight="149.0" prefWidth="397.0" />
       <Label layoutX="482.0" layoutY="362.0" text="Project Description: ">
