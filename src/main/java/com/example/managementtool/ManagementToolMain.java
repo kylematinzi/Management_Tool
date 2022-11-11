@@ -2,16 +2,15 @@ package com.example.managementtool;
 
 //import com.almasb.fxgl.net.Connection;
 import Utility.DatabaseConnection;
+import Utility.DatabaseQuery;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import java.sql.DriverManager;
-import java.sql.Connection;
+
+import java.sql.*;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 /**
  * To start this project I am starting with the GUI screens. After that I will set up and connect a database
@@ -36,8 +35,12 @@ public class ManagementToolMain extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         DatabaseConnection.startConnection();
+        Connection conn = DatabaseConnection.getConnection();
+        String insertStatement = "INSERT INTO employee_table (Employee_Id, Employee_First_Name, Employee_Last_Name, " +
+                "Username, Job_Title, Email_Address, Employee_Password) Values(?,?,?,?,?,?,?)";
+        DatabaseQuery.setPreparedStatement(conn, insertStatement);
         launch();
         DatabaseConnection.closeConnection();
     }
