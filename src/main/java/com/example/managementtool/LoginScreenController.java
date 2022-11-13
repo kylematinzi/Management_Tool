@@ -6,9 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -19,6 +17,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class LoginScreenController implements Initializable {
@@ -36,7 +35,15 @@ public class LoginScreenController implements Initializable {
     private boolean usernamePasswordFound = false;
     private Statement statement = null;
 
-
+    /**
+     *  This method opens the correct screen when a user is logging in. All users will see a generic user dashboard while
+     * the administrator will have a more detailed screen showing details only they would be authorized to see. I have also
+     * implemented the clearing of the password field in order to ensure when a user closes out someone could not come behind them
+     * and press the login button to gain access.
+     * @param actionEvent
+     * @throws IOException
+     * @throws SQLException
+     */
     public void loginButtonPressed (ActionEvent actionEvent) throws IOException, SQLException {
         Connection conn = DatabaseConnection.getConnection();
         statement = conn.createStatement();
@@ -52,7 +59,7 @@ public class LoginScreenController implements Initializable {
             }
         }
         rs.close();
-        if(usernamePasswordFound == true) {
+        if(usernamePasswordFound == true & userName.equals("Admin")) {
             StackPane adminDashboardParent = new StackPane();
             adminDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("adminDashboard.fxml")));
             Scene scene = new Scene(adminDashboardParent);
@@ -64,10 +71,29 @@ public class LoginScreenController implements Initializable {
             adminDashboardScene.setResizable(false);
             adminDashboardScene.setTitle("Project Management System");
             adminDashboardScene.show();
+            passwordField.clear();
             usernamePasswordFound = false;
         }
-        else{
-            System.out.println("Password Incorrect.");
+        else if(usernamePasswordFound == true){
+            StackPane adminDashboardParent = new StackPane();
+            adminDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("userDashboard.fxml")));
+            Scene scene = new Scene(adminDashboardParent);
+            Stage adminDashboardScene = new Stage();
+            adminDashboardScene.setScene(scene);
+            adminDashboardScene.initModality(Modality.WINDOW_MODAL);
+            adminDashboardScene.initOwner(((((Button) actionEvent.getSource()).getScene().getWindow())));
+            adminDashboardScene.sizeToScene();
+            adminDashboardScene.setResizable(false);
+            adminDashboardScene.setTitle("Project Management System");
+            adminDashboardScene.show();
+            passwordField.clear();
+            usernamePasswordFound = false;
+        }
+        else if(usernamePasswordFound == false){
+            passwordField.clear();
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Incorrect Username Password Combination. Please try again.");
+            alert.setTitle("Warning");
+            Optional<ButtonType> result = alert.showAndWait();
         }
     }
 
