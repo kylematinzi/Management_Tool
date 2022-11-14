@@ -1,5 +1,6 @@
 package com.example.managementtool;
 
+import Utility.DatabaseAccess;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -144,7 +145,7 @@ public class AdminDashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
+        allProjectsTable.setItems(DatabaseAccess.getAllProjects());
         projectIdColumn.setCellValueFactory((new PropertyValueFactory<>("projectId")));
         projectTitleColumn.setCellValueFactory((new PropertyValueFactory<>("title")));
         startDateColumn.setCellValueFactory((new PropertyValueFactory<>("start date")));
