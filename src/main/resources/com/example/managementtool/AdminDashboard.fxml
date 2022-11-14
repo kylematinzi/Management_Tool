@@ -20,10 +20,13 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <TableView fx:id="ProjectsTable" layoutX="273.0" layoutY="109.0" prefHeight="164.0" prefWidth="611.0">
+      <TableView fx:id="allProjectsTable" layoutX="273.0" layoutY="109.0" prefHeight="164.0" prefWidth="611.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="projectIdColumn" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="projectTitleColumn" prefWidth="123.99996948242188" text="Title " />
+            <TableColumn fx:id="startDateColumn" prefWidth="93.33334350585938" text="Start Date" />
+            <TableColumn fx:id="endDateColumn" prefWidth="92.0" text="End Date" />
+            <TableColumn fx:id="projectDescriptionColumn" prefWidth="226.00006103515625" text="Project Description" />
         </columns>
       </TableView>
       <TableView fx:id="TicketsTable" layoutX="273.0" layoutY="353.0" prefHeight="200.0" prefWidth="611.0">

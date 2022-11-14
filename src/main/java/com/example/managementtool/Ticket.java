@@ -7,7 +7,6 @@ import java.time.LocalDate;
  */
 public class Ticket {
 
-
     private int ticketId;
 
     private int projectAssociation;

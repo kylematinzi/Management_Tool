@@ -6,12 +6,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
 public class AdminDashboardController implements Initializable {
@@ -28,6 +32,18 @@ public class AdminDashboardController implements Initializable {
     private Button usersButton;
     @FXML
     private Button ProjectsButton;
+    @FXML
+    private TableView<Project> allProjectsTable;
+    @FXML
+    private TableColumn<Project, Integer> projectIdColumn;
+    @FXML
+    private TableColumn<Project, String> projectTitleColumn;
+    @FXML
+    private TableColumn<Project, Date> startDateColumn;
+    @FXML
+    private TableColumn<Project, Date> endDateColumn;
+    @FXML
+    private TableColumn<Project, String> projectDescriptionColumn;
 
     public void projectsButtonPressed(ActionEvent actionEvent) throws IOException {
         StackPane projectDashboardParent = new StackPane();
@@ -127,6 +143,13 @@ public class AdminDashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+        projectIdColumn.setCellValueFactory((new PropertyValueFactory<>("projectId")));
+        projectTitleColumn.setCellValueFactory((new PropertyValueFactory<>("title")));
+        startDateColumn.setCellValueFactory((new PropertyValueFactory<>("start date")));
+        endDateColumn.setCellValueFactory((new PropertyValueFactory<>("end date")));
+        projectDescriptionColumn.setCellValueFactory((new PropertyValueFactory<>("project description")));
 
     }
 }
