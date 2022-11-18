@@ -15,6 +15,11 @@
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d8d9d9" height="600.0" stroke="TRANSPARENT" strokeType="INSIDE" width="233.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d9d9d9" height="68.0" stroke="TRANSPARENT" strokeType="INSIDE" width="900.0" />
+      <Button fx:id="projectsButton" layoutX="31.0" layoutY="92.0" mnemonicParsing="false" onAction="#projectsButtonPressed" prefHeight="39.0" prefWidth="171.0" text="Projects">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
       <Button fx:id="usersButton" layoutX="31.0" layoutY="142.0" mnemonicParsing="false" onAction="#usersButtonPressed" prefHeight="39.0" prefWidth="171.0" text="Users">
          <font>
             <Font size="18.0" />
@@ -29,10 +34,14 @@
             <TableColumn fx:id="projectDescriptionColumn" prefWidth="226.00006103515625" text="Project Description" />
         </columns>
       </TableView>
-      <TableView fx:id="TicketsTable" layoutX="273.0" layoutY="353.0" prefHeight="200.0" prefWidth="611.0">
+      <TableView fx:id="allTicketsTable" layoutX="273.0" layoutY="353.0" prefHeight="200.0" prefWidth="611.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="ticketIdColumn" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="ticketTitleColumn" prefWidth="75.0" text="Title" />
+            <TableColumn fx:id="projectTicketIdColumn" prefWidth="110.0" text="Project ID" />
+            <TableColumn fx:id="ticketPriorityColumn" prefWidth="79.33331298828125" text="Priority " />
+            <TableColumn fx:id="ticketStatusColumn" prefWidth="99.99993896484375" text="Status" />
+            <TableColumn fx:id="ticketDescriptionColumn" prefWidth="170.00002034505212" text="Ticket Description" />
         </columns>
       </TableView>
       <Label layoutX="273.0" layoutY="75.0" text="Projects">
@@ -74,10 +83,5 @@
       </Label>
       <TextField layoutX="421.0" layoutY="76.0" promptText="Project ID / Title" />
       <TextField layoutX="421.0" layoutY="321.0" promptText="Ticket ID / Title" />
-      <Button fx:id="projectsButton" layoutX="31.0" layoutY="92.0" mnemonicParsing="false" onAction="#projectsButtonPressed" prefHeight="39.0" prefWidth="171.0" text="Projects">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>
