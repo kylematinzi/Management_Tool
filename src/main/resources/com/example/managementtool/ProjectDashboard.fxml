@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -33,7 +35,7 @@
       </Label>
       <Pane layoutX="28.0" layoutY="122.0" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <ProgressBar layoutX="13.0" layoutY="168.0" prefHeight="18.0" prefWidth="175.0" progress="0.34" />
+            <ProgressBar fx:id="progressBar" layoutX="13.0" layoutY="168.0" prefHeight="18.0" prefWidth="175.0" progress="0.34" />
             <Label layoutX="14.0" layoutY="6.0" text="Project Details: ">
                <font>
                   <Font size="18.0" />
@@ -50,11 +52,11 @@
                   <Font size="11.0" />
                </font>
             </Label>
-            <Label layoutX="96.0" layoutY="33.0" text="Label" />
-            <Label layoutX="136.0" layoutY="57.0" text="Label" />
-            <Label layoutX="82.0" layoutY="83.0" text="Label" />
-            <Label layoutX="96.0" layoutY="108.0" text="Label" />
-            <Label layoutX="120.0" layoutY="133.0" text="Label" />
+            <Label fx:id="dateCreatedLabel" layoutX="96.0" layoutY="33.0" text="Label" />
+            <Label fx:id="projectedCompletionLabel" layoutX="136.0" layoutY="57.0" text="Label" />
+            <Label fx:id="daysOpenLabel" layoutX="82.0" layoutY="83.0" text="Label" />
+            <Label fx:id="openTicketsLabel" layoutX="96.0" layoutY="108.0" text="Label" />
+            <Label fx:id="completedTicketsLabel" layoutX="120.0" layoutY="133.0" text="Label" />
          </children>
       </Pane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="236.0" layoutX="18.0" layoutY="335.0" stroke="BLACK" strokeType="INSIDE" width="395.0" />
@@ -63,46 +65,51 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ListView layoutX="28.0" layoutY="362.0" prefHeight="169.0" prefWidth="200.0" />
-      <Button layoutX="28.0" layoutY="540.0" mnemonicParsing="false" text="View" />
-      <Button layoutX="79.0" layoutY="540.0" mnemonicParsing="false" text="Remove" />
+      <ListView fx:id="teamMembersListView" layoutX="28.0" layoutY="362.0" prefHeight="169.0" prefWidth="200.0" />
+      <Button fx:id="viewTeamMemberButton" layoutX="28.0" layoutY="540.0" mnemonicParsing="false" onAction="#viewTeamMemberButtonPressed" text="View" />
+      <Button fx:id="removeTeamMemberButton" layoutX="79.0" layoutY="540.0" mnemonicParsing="false" onAction="#removeTeamMemberButtonPressed" text="Remove" />
       <Label layoutX="481.0" layoutY="81.0" text="Ticket Information: ">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <ListView layoutX="481.0" layoutY="122.0" prefHeight="200.0" prefWidth="398.0" />
-      <Button layoutX="482.0" layoutY="326.0" mnemonicParsing="false" text="Add Ticket" />
-      <Button layoutX="570.0" layoutY="326.0" mnemonicParsing="false" text="Edit" />
-      <Button layoutX="622.0" layoutY="326.0" mnemonicParsing="false" text="Delete" />
-      <Button layoutX="840.0" layoutY="560.0" mnemonicParsing="false" text="Close" />
+      <Button fx:id="addTicketButton" layoutX="482.0" layoutY="326.0" mnemonicParsing="false" onAction="#addTicketButtonPressed" text="Add Ticket" />
+      <Button fx:id="editTicketButton" layoutX="570.0" layoutY="326.0" mnemonicParsing="false" onAction="#editTicketButtonPressed" text="Edit" />
+      <Button fx:id="deleteTicketButton" layoutX="622.0" layoutY="326.0" mnemonicParsing="false" onAction="#deleteTicketButtonPressed" text="Delete" />
+      <Button fx:id="closeButton" layoutX="840.0" layoutY="560.0" mnemonicParsing="false" onAction="#closeButtonPressed" text="Close" />
       <Label layoutX="232.0" layoutY="122.0" text="Project Title:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="232.0" layoutY="149.0" prefHeight="25.0" prefWidth="175.0" promptText="Project Name" />
-      <Button layoutX="350.0" layoutY="183.0" mnemonicParsing="false" text="Change" />
+      <TextField fx:id="projectTitleTextField" layoutX="232.0" layoutY="149.0" prefHeight="25.0" prefWidth="175.0" promptText="Project Name" />
       <Label layoutX="231.0" layoutY="222.0" text="Projected Completion:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <DatePicker layoutX="232.0" layoutY="249.0" />
-      <Button layoutX="350.0" layoutY="287.0" mnemonicParsing="false" text="Change" />
+      <DatePicker fx:id="projectedCompletionDatePicker" layoutX="232.0" layoutY="249.0" />
       <TextArea layoutX="482.0" layoutY="396.0" prefHeight="149.0" prefWidth="397.0" />
       <Label layoutX="482.0" layoutY="362.0" text="Project Description: ">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="743.0" layoutY="560.0" mnemonicParsing="false" text="Save Changes" />
-      <ComboBox layoutX="237.0" layoutY="434.0" prefWidth="150.0" promptText="Select Member" />
-      <Button layoutX="269.0" layoutY="471.0" mnemonicParsing="false" text="Add Member" />
+      <Button fx:id="saveChangesButton" layoutX="743.0" layoutY="560.0" mnemonicParsing="false" onAction="#saveChangesButtonPressed" text="Save Changes" />
+      <ComboBox fx:id="teamMemberComboBox" layoutX="237.0" layoutY="434.0" prefWidth="150.0" promptText="Select Member" />
+      <Button fx:id="addTeamMemberButton" layoutX="269.0" layoutY="471.0" mnemonicParsing="false" onAction="#addTeamMemberButtonPressed" text="Add Member" />
       <Label layoutX="238.0" layoutY="396.0" text="Add Team Member: ">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
+      <TableView layoutX="481.0" layoutY="122.0" prefHeight="200.0" prefWidth="397.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="ID" />
+          <TableColumn prefWidth="75.0" text="Title" />
+            <TableColumn prefWidth="75.0" text="Status" />
+            <TableColumn prefWidth="170.00002034505206" text="Description" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

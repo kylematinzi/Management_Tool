@@ -61,6 +61,11 @@ public class AdminDashboardController implements Initializable {
     private TableColumn<Ticket, String> ticketDescriptionColumn;
 
 
+    /**
+     * This method opens the all projects screen which shows a breakdown of all projects.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void projectsButtonPressed(ActionEvent actionEvent) throws IOException {
         StackPane projectDashboardParent = new StackPane();
         projectDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("allProjectsScreen.fxml")));
@@ -75,6 +80,11 @@ public class AdminDashboardController implements Initializable {
         projectDashboardScene.show();
     }
 
+    /**
+     * This method opens a screen that shows all current users.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void usersButtonPressed(ActionEvent actionEvent) throws IOException {
         StackPane usersParent = new StackPane();
         usersParent.getChildren().add(FXMLLoader.load(getClass().getResource("userDetailDashboard.fxml")));
@@ -89,6 +99,11 @@ public class AdminDashboardController implements Initializable {
         newUsersScene.show();
     }
 
+    /**
+     * This method opens a screen showing the details of the selected project on the projects table.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void projectDetailsButtonPressed(ActionEvent actionEvent) throws IOException {
         StackPane projectDashboardParent = new StackPane();
         projectDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("projectDashboard.fxml")));

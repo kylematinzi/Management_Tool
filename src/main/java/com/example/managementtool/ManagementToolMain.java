@@ -19,12 +19,10 @@ import java.io.IOException;
  *
  */
 //TODO Add docker
-//TODO Create AWS database
 public class ManagementToolMain extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         // Using stackPane in order to disallow the user to interact with any screen except the
-        // top screen.
         StackPane stackRoot = new StackPane();
         stackRoot.getChildren().add(FXMLLoader.load(getClass().getResource("LoginScreen.fxml")));
         Scene scene = new Scene(stackRoot);
