@@ -105,11 +105,16 @@ public class AdminDashboardController implements Initializable {
      * @throws IOException
      */
     public void projectDetailsButtonPressed(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("projectDashboard.fxml"));
         StackPane projectDashboardParent = new StackPane();
-        projectDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("projectDashboard.fxml")));
+        //projectDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("projectDashboard.fxml")));
+        projectDashboardParent.getChildren().add(loader.load());
         Scene scene = new Scene(projectDashboardParent);
         Stage projectDashboardScene = new Stage();
         projectDashboardScene.setScene(scene);
+        ProjectDashboardController controller = loader.getController();
+        controller.getInitializeData(allProjectsTable.getSelectionModel().getSelectedItem());
         projectDashboardScene.initModality(Modality.WINDOW_MODAL);
         projectDashboardScene.initOwner(((((Button)actionEvent.getSource()).getScene().getWindow())));
         projectDashboardScene.sizeToScene();
@@ -171,6 +176,7 @@ public class AdminDashboardController implements Initializable {
     public void closeButtonPressed(ActionEvent actionEvent) throws IOException {
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

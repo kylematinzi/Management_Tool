@@ -1,9 +1,11 @@
 package com.example.managementtool;
 
+import Utility.DatabaseAccess;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -48,6 +50,14 @@ public class ProjectDashboardController implements Initializable {
     private Button deleteTicketButton;
     @FXML
     private Button closeButton;
+    @FXML
+    private TextArea projectDescriptionTextArea;
+    @FXML
+    private TableView<Ticket> ticketTableView;
+    @FXML
+    private TableColumn<Ticket, Integer> ticketIdColumn;
+
+    private Project selectedProject;
 
     public void saveChangesButtonPressed(ActionEvent actionEvent){
         dateCreatedLabel.setText("Changed: "+ count);
@@ -82,8 +92,17 @@ public class ProjectDashboardController implements Initializable {
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
     }
 
+    public void getInitializeData(Project project){
+        selectedProject = project;
+        projectTitleLabel.setText(project.getProjectTitle());
+        projectedCompletionLabel.setText(project.getDateCompleted().toString());
+        projectDescriptionTextArea.setText(project.getProjectDescription());
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        // for some reason this is throwing a nullpointer exception
+//        ticketTableView.setItems(DatabaseAccess.getAllTickets());
+//        ticketIdColumn.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
     }
 }
