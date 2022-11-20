@@ -113,6 +113,7 @@ public class AdminDashboardController implements Initializable {
         Scene scene = new Scene(projectDashboardParent);
         Stage projectDashboardScene = new Stage();
         projectDashboardScene.setScene(scene);
+        //new line for initialize below
         ProjectDashboardController controller = loader.getController();
         controller.getInitializeData(allProjectsTable.getSelectionModel().getSelectedItem());
         projectDashboardScene.initModality(Modality.WINDOW_MODAL);

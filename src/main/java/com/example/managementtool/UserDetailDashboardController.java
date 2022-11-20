@@ -56,11 +56,18 @@ public class UserDetailDashboardController implements Initializable {
     }
 
     public void createUserButtonPressed(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("CreateNewUserScreen.fxml"));
         StackPane userDetailParent = new StackPane();
-        userDetailParent.getChildren().add(FXMLLoader.load(getClass().getResource("CreateNewUserScreen.fxml")));
+        //userDetailParent.getChildren().add(FXMLLoader.load(getClass().getResource("CreateNewUserScreen.fxml")));
+        //userDetailParent.getChildren().add(FXMLLoader.load(getClass().getResource("userDetailsScreen.fxml")));
+        userDetailParent.getChildren().add(loader.load());
         Scene scene = new Scene(userDetailParent);
         Stage userDetailScene = new Stage();
         userDetailScene.setScene(scene);
+        //Two new lines below
+        UserDetailsScreenController controller = loader.getController();
+        controller.getInitializeData(allUsersTable.getSelectionModel().getSelectedItem());
         userDetailScene.initModality(Modality.WINDOW_MODAL);
         userDetailScene.initOwner(((((Button)actionEvent.getSource()).getScene().getWindow())));
         userDetailScene.sizeToScene();
