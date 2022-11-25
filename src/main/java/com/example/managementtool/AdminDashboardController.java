@@ -1,14 +1,14 @@
 package com.example.managementtool;
 
 import Utility.DatabaseAccess;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AdminDashboardController implements Initializable {
@@ -59,6 +60,7 @@ public class AdminDashboardController implements Initializable {
     private TableColumn<Ticket, String> ticketPriorityColumn;
     @FXML
     private TableColumn<Ticket, String> ticketDescriptionColumn;
+    private static ObservableList<Ticket> selectedTicketsList = FXCollections.observableArrayList();
 
 
     /**
@@ -105,23 +107,29 @@ public class AdminDashboardController implements Initializable {
      * @throws IOException
      */
     public void projectDetailsButtonPressed(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("projectDashboard.fxml"));
-        StackPane projectDashboardParent = new StackPane();
-        //projectDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("projectDashboard.fxml")));
-        projectDashboardParent.getChildren().add(loader.load());
-        Scene scene = new Scene(projectDashboardParent);
-        Stage projectDashboardScene = new Stage();
-        projectDashboardScene.setScene(scene);
-        //new line for initialize below
-        ProjectDashboardController controller = loader.getController();
-        controller.getInitializeData(allProjectsTable.getSelectionModel().getSelectedItem());
-        projectDashboardScene.initModality(Modality.WINDOW_MODAL);
-        projectDashboardScene.initOwner(((((Button)actionEvent.getSource()).getScene().getWindow())));
-        projectDashboardScene.sizeToScene();
-        projectDashboardScene.setResizable(false);
-        projectDashboardScene.setTitle("Project Management System");
-        projectDashboardScene.show();
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("projectDashboard.fxml"));
+            StackPane projectDashboardParent = new StackPane();
+            //projectDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("projectDashboard.fxml")));
+            projectDashboardParent.getChildren().add(loader.load());
+            Scene scene = new Scene(projectDashboardParent);
+            Stage projectDashboardScene = new Stage();
+            projectDashboardScene.setScene(scene);
+            //new line for initialize below
+            ProjectDashboardController controller = loader.getController();
+            controller.getInitializeData(allProjectsTable.getSelectionModel().getSelectedItem());
+            projectDashboardScene.initModality(Modality.WINDOW_MODAL);
+            projectDashboardScene.initOwner(((((Button) actionEvent.getSource()).getScene().getWindow())));
+            projectDashboardScene.sizeToScene();
+            projectDashboardScene.setResizable(false);
+            projectDashboardScene.setTitle("Project Management System");
+            projectDashboardScene.show();
+        }catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.WARNING, "No project selected");
+            alert.setTitle("Warning");
+            Optional<ButtonType> result = alert.showAndWait();
+        }
     }
 
     public void createNewProjectButtonPressed(ActionEvent actionEvent) throws IOException {
@@ -176,6 +184,21 @@ public class AdminDashboardController implements Initializable {
 
     public void closeButtonPressed(ActionEvent actionEvent) throws IOException {
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
+    }
+
+    public int getSelectedProjectID(){
+        int projectID = allProjectsTable.getSelectionModel().getSelectedItem().getProjectId();
+        return projectID;
+    }
+
+    public static ObservableList<Ticket> setTicketTableSelectedProject(){
+        selectedTicketsList.clear();
+
+        return selectedTicketsList;
+    }
+
+    public static ObservableList<Ticket> setTicketTableAllProjects(){
+        return null;
     }
 
 
