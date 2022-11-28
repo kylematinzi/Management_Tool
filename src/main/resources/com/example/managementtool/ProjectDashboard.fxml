@@ -103,9 +103,9 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TableView layoutX="481.0" layoutY="122.0" prefHeight="200.0" prefWidth="397.0">
+      <TableView fx:id="ticketTableView" layoutX="481.0" layoutY="122.0" prefHeight="200.0" prefWidth="397.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="ticketIdColumn" prefWidth="75.0" text="ID" />
           <TableColumn prefWidth="75.0" text="Title" />
             <TableColumn prefWidth="75.0" text="Status" />
             <TableColumn prefWidth="170.00002034505206" text="Description" />

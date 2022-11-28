@@ -54,11 +54,11 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <RadioButton layoutX="777.0" layoutY="325.0" mnemonicParsing="false" text="Selected Project">
+      <RadioButton fx:id="selectedProjectRadioButton" layoutX="777.0" layoutY="325.0" mnemonicParsing="false" onAction="#selectedProjectRadioButtonSelected" text="Selected Project">
          <toggleGroup>
             <ToggleGroup fx:id="ticketToggleGroup" />
          </toggleGroup></RadioButton>
-      <RadioButton layoutX="693.0" layoutY="325.0" mnemonicParsing="false" selected="true" text="All Tickets" toggleGroup="$ticketToggleGroup" />
+      <RadioButton fx:id="allTicketsRadioButton" layoutX="693.0" layoutY="325.0" mnemonicParsing="false" onAction="#allTicketsRadioButtonSelected" selected="true" text="All Tickets" toggleGroup="$ticketToggleGroup" />
       <Button fx:id="deleteProjectButton" layoutX="496.0" layoutY="287.0" mnemonicParsing="false" onAction="#deleteProjectButtonPressed" text="Delete" />
       <Button fx:id="createNewProjectButton" layoutX="373.0" layoutY="288.0" mnemonicParsing="false" onAction="#createNewProjectButtonPressed" text="Create New Project" />
       <Button fx:id="deleteTicketButton" layoutX="496.0" layoutY="562.0" mnemonicParsing="false" onAction="#deleteTicketButtonPressed" text="Delete" />

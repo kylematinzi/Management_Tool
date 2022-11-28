@@ -19,6 +19,7 @@ public class DatabaseAccess {
     private static ObservableList<Project> allProjectsList = FXCollections.observableArrayList();
     private static ObservableList<Ticket> allTicketsList = FXCollections.observableArrayList();
     private static ObservableList<Employee> allEmployeesList = FXCollections.observableArrayList();
+    private static ObservableList<Ticket> selectedTicketsList = FXCollections.observableArrayList();
 
     public static ObservableList<Project> getAllProjects() {
         allProjectsList.clear();
@@ -91,6 +92,33 @@ public class DatabaseAccess {
             throwable.printStackTrace();
         }
         return allEmployeesList;
+    }
+
+    public static ObservableList<Ticket> getSelectedTickets(int projectId){
+        selectedTicketsList.clear();
+        try{
+            String sqlCommand = "SELECT * from Ticket_Table WHERE Project_Association = ?";
+            PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(sqlCommand);
+            ps.setInt(1, projectId);
+            ResultSet results = ps.executeQuery();
+            while(results.next()){
+                selectedTicketsList.add(new Ticket(
+                        results.getInt("Ticket_ID"),
+                        results.getInt("Project_Association"),
+                        results.getString("Ticket_Title"),
+                        results.getString("Priority_Level"),
+                        results.getString("Ticket_Status"),
+                        results.getDate("Date_Created").toLocalDate(),
+                        results.getDate("Date_Completed").toLocalDate(),
+                        results.getString("Ticket_Description")
+                ));
+            }
+            results.close();
+        } catch (Exception throwables){
+            //Can switch exception to SQLException
+            throwables.printStackTrace();
+        }
+        return selectedTicketsList;
     }
 }
 

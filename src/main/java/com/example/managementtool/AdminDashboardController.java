@@ -1,6 +1,7 @@
 package com.example.managementtool;
 
 import Utility.DatabaseAccess;
+import Utility.DatabaseConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +18,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -60,7 +64,11 @@ public class AdminDashboardController implements Initializable {
     private TableColumn<Ticket, String> ticketPriorityColumn;
     @FXML
     private TableColumn<Ticket, String> ticketDescriptionColumn;
-    private static ObservableList<Ticket> selectedTicketsList = FXCollections.observableArrayList();
+    @FXML
+    private RadioButton allTicketsRadioButton;
+    @FXML
+    private RadioButton selectedProjectRadioButton;
+
 
 
     /**
@@ -190,15 +198,31 @@ public class AdminDashboardController implements Initializable {
         int projectID = allProjectsTable.getSelectionModel().getSelectedItem().getProjectId();
         return projectID;
     }
-
-    public static ObservableList<Ticket> setTicketTableSelectedProject(){
-        selectedTicketsList.clear();
-
-        return selectedTicketsList;
+    public void allTicketsRadioButtonSelected(ActionEvent actionEvent){
+        allTicketsTable.setItems(DatabaseAccess.getAllTickets());
+        ticketIdColumn.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
+        ticketTitleColumn.setCellValueFactory(new PropertyValueFactory<>("ticketTitle"));
+        projectTicketIdColumn.setCellValueFactory(new PropertyValueFactory<>("projectAssociation"));
+        ticketPriorityColumn.setCellValueFactory(new PropertyValueFactory<>("ticketPriorityLevel"));
+        ticketStatusColumn.setCellValueFactory(new PropertyValueFactory<>("ticketStatusLevel"));
+        ticketDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("ticketDescription"));
     }
 
-    public static ObservableList<Ticket> setTicketTableAllProjects(){
-        return null;
+    public void selectedProjectRadioButtonSelected(ActionEvent actionEvent){
+        try {
+            allTicketsTable.setItems(DatabaseAccess.getSelectedTickets(getSelectedProjectID()));
+            ticketIdColumn.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
+            ticketTitleColumn.setCellValueFactory(new PropertyValueFactory<>("ticketTitle"));
+            projectTicketIdColumn.setCellValueFactory(new PropertyValueFactory<>("projectAssociation"));
+            ticketPriorityColumn.setCellValueFactory(new PropertyValueFactory<>("ticketPriorityLevel"));
+            ticketStatusColumn.setCellValueFactory(new PropertyValueFactory<>("ticketStatusLevel"));
+            ticketDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("ticketDescription"));
+        }catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Please select a project to display its assigned tickets.");
+            alert.setTitle("Alert");
+            Optional<ButtonType> result = alert.showAndWait();
+            allTicketsRadioButton.setSelected(true);
+        }
     }
 
 
