@@ -23,7 +23,7 @@
       </Label>
       <Button fx:id="viewUserButton" layoutX="57.0" layoutY="456.0" mnemonicParsing="false" onAction="#viewUserButtonPressed" text="View" />
       <Button fx:id="createUserButton" layoutX="111.0" layoutY="456.0" mnemonicParsing="false" onAction="#createUserButtonPressed" text="Create" />
-      <Button layoutX="175.0" layoutY="456.0" mnemonicParsing="false" text="Remove" />
+      <Button fx:id="removeUserButton" layoutX="175.0" layoutY="456.0" mnemonicParsing="false" onAction="#removeUserButtonPressed" text="Remove" />
       <Button fx:id="closeButton" layoutX="840.0" layoutY="560.0" mnemonicParsing="false" onAction="#closeButtonPressed" text="Close" />
       <TableView fx:id="allUsersTable" layoutX="57.0" layoutY="153.0" prefHeight="294.0" prefWidth="785.0">
         <columns>

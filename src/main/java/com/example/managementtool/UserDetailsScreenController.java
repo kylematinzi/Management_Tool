@@ -1,8 +1,11 @@
 package com.example.managementtool;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,7 +29,10 @@ public class UserDetailsScreenController implements Initializable {
         userNameLabel.setText(employee.getEmployeeFirstName()+" "+employee.getEmployeeLastName());
         userJobTitleLabel.setText(employee.getJobTitle());
         userEmailAddressLabel.setText(employee.getEmailAddress());
-        System.out.println("runningggggg");
+    }
+
+    public void closeButtonPressed(ActionEvent actionEvent){
+        ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
     }
 
 

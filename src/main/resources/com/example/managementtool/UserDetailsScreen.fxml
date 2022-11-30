@@ -15,10 +15,10 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Button layoutX="840.0" layoutY="360.0" mnemonicParsing="false" text="Close" />
-      <Pane layoutX="48.0" layoutY="85.0" prefHeight="287.0" prefWidth="337.0">
+      <Button fx:id="closeButton" layoutX="840.0" layoutY="360.0" mnemonicParsing="false" onAction="#closeButtonPressed" text="Close" />
+      <Pane layoutX="48.0" layoutY="85.0" prefHeight="287.0" prefWidth="425.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#481fff00" height="287.0" stroke="BLACK" strokeType="INSIDE" width="337.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#481fff00" height="287.0" stroke="BLACK" strokeType="INSIDE" width="426.0" />
             <Label layoutX="20.0" layoutY="25.0" text="Name: ">
                <font>
                   <Font size="18.0" />
