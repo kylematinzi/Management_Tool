@@ -1,6 +1,8 @@
 package com.example.managementtool;
 
 import Utility.DatabaseAccess;
+import Utility.DatabaseConnection;
+import Utility.DatabaseQuery;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,10 +13,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -62,6 +65,10 @@ public class AdminDashboardController implements Initializable {
     private RadioButton allTicketsRadioButton;
     @FXML
     private RadioButton selectedProjectRadioButton;
+    private int projectId;
+    private String projectTitle;
+    private int ticketId;
+    private String ticketTitle;
 
 
 
@@ -148,7 +155,39 @@ public class AdminDashboardController implements Initializable {
         newProjectScene.show();
     }
 
-    public void deleteProjectButtonPressed(ActionEvent actionEvent) throws IOException {}
+    public void deleteProjectButtonPressed(ActionEvent actionEvent) throws IOException {
+        //TODO need to create functionality that if you delete a project it deletes all corresponding tickets or gives
+        // the option to leave the corresponding tickets as unassigned.
+        try{
+            Connection conn = DatabaseConnection.getConnection();
+            String deleteStatement = "DELETE FROM Project_Table WHERE Project_Id = ?";
+            DatabaseQuery.setPreparedStatement(conn, deleteStatement);
+            Project deletingProject = allProjectsTable.getSelectionModel().getSelectedItem();
+            projectId = deletingProject.getProjectId();
+            projectTitle = deletingProject.getProjectTitle();
+            PreparedStatement ps = DatabaseQuery.getPreparedStatement();
+            if (deletingProject == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING, "No project selected for deletion.");
+                alert.setTitle("Empty Selection");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "You are about to delete: "+"\n"
+                        +"Project ID: "+ projectId +"\n"+
+                        "Project Title: "+projectTitle);
+                alert.setTitle("Confirmation");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    ps.setInt(1, projectId);
+                    ps.execute();
+                }
+            }
+            allProjectsTable.setItems(DatabaseAccess.getAllProjects());
+        }catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.WARNING, "No project selected to delete.");
+            alert.setTitle("Warning");
+            Optional<ButtonType> result = alert.showAndWait();
+        }
+    }
 
 
     public void ticketDetailsButtonPressed(ActionEvent actionEvent) throws IOException {
@@ -180,7 +219,35 @@ public class AdminDashboardController implements Initializable {
     }
 
     public void deleteTicketButtonPressed(ActionEvent actionEvent) throws IOException {
-
+        try{
+            Connection conn = DatabaseConnection.getConnection();
+            String deleteStatement = "DELETE FROM Ticket_Table WHERE Ticket_Id = ?";
+            DatabaseQuery.setPreparedStatement(conn, deleteStatement);
+            Ticket deletingTicket = allTicketsTable.getSelectionModel().getSelectedItem();
+            ticketId = deletingTicket.getTicketId();
+            ticketTitle = deletingTicket.getTicketTitle();
+            PreparedStatement ps = DatabaseQuery.getPreparedStatement();
+            if (deletingTicket == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING, "No ticket selected for deletion.");
+                alert.setTitle("Empty Selection");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "You are about to delete: "+"\n"
+                        +"Ticket ID: "+ ticketId +"\n"+
+                        "Ticket Title: "+ticketTitle);
+                alert.setTitle("Confirmation");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    ps.setInt(1, ticketId);
+                    ps.execute();
+                }
+            }
+            allTicketsTable.setItems(DatabaseAccess.getAllTickets());
+        }catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.WARNING, "No project selected to delete.");
+            alert.setTitle("Warning");
+            Optional<ButtonType> result = alert.showAndWait();
+        }
     }
 
 
