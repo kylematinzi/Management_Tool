@@ -192,7 +192,7 @@ public class AdminDashboardController implements Initializable {
 
     public void ticketDetailsButtonPressed(ActionEvent actionEvent) throws IOException {
         StackPane ticketDetailParent = new StackPane();
-        ticketDetailParent.getChildren().add(FXMLLoader.load(getClass().getResource("UpdateTicketScreen.fxml")));
+        ticketDetailParent.getChildren().add(FXMLLoader.load(getClass().getResource("TicketDetailsScreen.fxml")));
         Scene scene = new Scene(ticketDetailParent);
         Stage ticketDetailScene = new Stage();
         ticketDetailScene.setScene(scene);

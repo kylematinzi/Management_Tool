@@ -9,6 +9,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ResourceBundle;
 
 public class ProjectDashboardController implements Initializable {
@@ -58,10 +60,10 @@ public class ProjectDashboardController implements Initializable {
     private TableColumn<Ticket, Integer> ticketIdColumn;
 
     private Project selectedProject;
+    private int daysOpen;
 
     public void saveChangesButtonPressed(ActionEvent actionEvent){
-        dateCreatedLabel.setText("Changed: "+ count);
-        count++;
+
     }
 
     public void addTicketButtonPressed(ActionEvent actionEvent){
@@ -95,8 +97,11 @@ public class ProjectDashboardController implements Initializable {
     public void getInitializeData(Project project){
         selectedProject = project;
         projectTitleLabel.setText(project.getProjectTitle());
+        dateCreatedLabel.setText(project.getDateCreated().toString());
         projectedCompletionLabel.setText(project.getDateCompleted().toString());
         projectDescriptionTextArea.setText(project.getProjectDescription());
+        daysOpen = Period.between(project.getDateCreated(), LocalDate.now()).getDays();
+        daysOpenLabel.setText(String.valueOf(daysOpen));
     }
 
     @Override

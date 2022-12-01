@@ -28,7 +28,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="projectTitleLabel" layoutX="145.0" layoutY="81.0" text="Name of Project">
+      <Label fx:id="projectTitleLabel" layoutX="145.0" layoutY="81.0" prefHeight="27.0" prefWidth="293.0" text="Name of Project">
          <font>
             <Font size="18.0" />
          </font>
