@@ -65,7 +65,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="374.0" layoutY="119.0" text="Month / Day / Year">
+      <Label fx:id="dateCreatedLabel" layoutX="403.0" layoutY="119.0" text="Date">
          <font>
             <Font size="18.0" />
          </font>

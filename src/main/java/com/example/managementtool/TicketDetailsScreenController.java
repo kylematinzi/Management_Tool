@@ -5,10 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -32,6 +29,8 @@ public class TicketDetailsScreenController implements Initializable {
     private ComboBox ticketStatusComboBox;
     @FXML
     private ComboBox ticketPriorityComboBox;
+    @FXML
+    private Label dateCreatedLabel;
     private ObservableList<String> ticketStatusList = FXCollections.observableArrayList();
     private ObservableList<String> ticketPriorityList = FXCollections.observableArrayList();
     public void getInitializeData(Ticket ticket){
@@ -39,6 +38,9 @@ public class TicketDetailsScreenController implements Initializable {
         ticketTitleTextField.setText(ticket.getTicketTitle());
         ticketIdTextField.setText(String.valueOf(ticket.getTicketId()));
         ticketDescriptionTextArea.setText(ticket.getTicketDescription());
+        dateCreatedLabel.setText(ticket.getDateCreated().toString());
+        ticketStatusComboBox.setValue(ticket.getTicketStatusLevel());
+        ticketPriorityComboBox.setValue(ticket.getTicketPriorityLevel());
     }
     public void closeButtonPressed(ActionEvent actionEvent) throws IOException {
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();

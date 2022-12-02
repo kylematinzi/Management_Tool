@@ -191,17 +191,40 @@ public class AdminDashboardController implements Initializable {
 
 
     public void ticketDetailsButtonPressed(ActionEvent actionEvent) throws IOException {
-        StackPane ticketDetailParent = new StackPane();
-        ticketDetailParent.getChildren().add(FXMLLoader.load(getClass().getResource("TicketDetailsScreen.fxml")));
-        Scene scene = new Scene(ticketDetailParent);
-        Stage ticketDetailScene = new Stage();
-        ticketDetailScene.setScene(scene);
-        ticketDetailScene.initModality(Modality.WINDOW_MODAL);
-        ticketDetailScene.initOwner(((((Button)actionEvent.getSource()).getScene().getWindow())));
-        ticketDetailScene.sizeToScene();
-        ticketDetailScene.setResizable(false);
-        ticketDetailScene.setTitle("Project Management System");
-        ticketDetailScene.show();
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("TicketDetailsScreen.fxml"));
+            StackPane ticketDetailParent = new StackPane();
+            //projectDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("projectDashboard.fxml")));
+            ticketDetailParent.getChildren().add(loader.load());
+            Scene scene = new Scene(ticketDetailParent);
+            Stage ticketDetailScreen = new Stage();
+            ticketDetailScreen.setScene(scene);
+            //new line for initialize below
+            TicketDetailsScreenController controller = loader.getController();
+            controller.getInitializeData(allTicketsTable.getSelectionModel().getSelectedItem());
+            ticketDetailScreen.initModality(Modality.WINDOW_MODAL);
+            ticketDetailScreen.initOwner(((((Button) actionEvent.getSource()).getScene().getWindow())));
+            ticketDetailScreen.sizeToScene();
+            ticketDetailScreen.setResizable(false);
+            ticketDetailScreen.setTitle("Project Management System");
+            ticketDetailScreen.show();
+        }catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.WARNING, "No ticket selected");
+            alert.setTitle("Warning");
+            Optional<ButtonType> result = alert.showAndWait();
+        }
+//        StackPane ticketDetailParent = new StackPane();
+//        ticketDetailParent.getChildren().add(FXMLLoader.load(getClass().getResource("TicketDetailsScreen.fxml")));
+//        Scene scene = new Scene(ticketDetailParent);
+//        Stage ticketDetailScene = new Stage();
+//        ticketDetailScene.setScene(scene);
+//        ticketDetailScene.initModality(Modality.WINDOW_MODAL);
+//        ticketDetailScene.initOwner(((((Button)actionEvent.getSource()).getScene().getWindow())));
+//        ticketDetailScene.sizeToScene();
+//        ticketDetailScene.setResizable(false);
+//        ticketDetailScene.setTitle("Project Management System");
+//        ticketDetailScene.show();
     }
 
     public void createNewTicketButtonPressed(ActionEvent actionEvent) throws IOException {
