@@ -57,7 +57,7 @@
          </font>
       </Label>
       <ComboBox layoutX="664.0" layoutY="192.0" prefWidth="150.0" promptText="Team Members" />
-      <ComboBox layoutX="664.0" layoutY="120.0" prefWidth="150.0" promptText="Project Name" />
+      <ComboBox fx:id="projectNameComboBox" layoutX="664.0" layoutY="120.0" prefWidth="150.0" promptText="Project Name" />
       <Button layoutX="739.0" layoutY="560.0" mnemonicParsing="false" text="Save Changes " />
       <Button fx:id="closeButton" layoutX="840.0" layoutY="560.0" mnemonicParsing="false" onAction="#closeButtonPressed" text="Close" />
       <Label layoutX="396.0" layoutY="94.0" text="Date Created:">

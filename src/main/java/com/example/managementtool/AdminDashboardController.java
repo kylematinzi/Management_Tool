@@ -214,17 +214,6 @@ public class AdminDashboardController implements Initializable {
             alert.setTitle("Warning");
             Optional<ButtonType> result = alert.showAndWait();
         }
-//        StackPane ticketDetailParent = new StackPane();
-//        ticketDetailParent.getChildren().add(FXMLLoader.load(getClass().getResource("TicketDetailsScreen.fxml")));
-//        Scene scene = new Scene(ticketDetailParent);
-//        Stage ticketDetailScene = new Stage();
-//        ticketDetailScene.setScene(scene);
-//        ticketDetailScene.initModality(Modality.WINDOW_MODAL);
-//        ticketDetailScene.initOwner(((((Button)actionEvent.getSource()).getScene().getWindow())));
-//        ticketDetailScene.sizeToScene();
-//        ticketDetailScene.setResizable(false);
-//        ticketDetailScene.setTitle("Project Management System");
-//        ticketDetailScene.show();
     }
 
     public void createNewTicketButtonPressed(ActionEvent actionEvent) throws IOException {

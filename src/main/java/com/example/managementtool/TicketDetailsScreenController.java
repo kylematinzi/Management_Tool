@@ -1,18 +1,13 @@
 package com.example.managementtool;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import Utility.DatabaseAccess;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.Period;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
@@ -30,10 +25,11 @@ public class TicketDetailsScreenController implements Initializable {
     @FXML
     private ComboBox ticketPriorityComboBox;
     @FXML
+    private ComboBox projectNameComboBox;
+    @FXML
     private Label dateCreatedLabel;
-    private ObservableList<String> ticketStatusList = FXCollections.observableArrayList();
-    private ObservableList<String> ticketPriorityList = FXCollections.observableArrayList();
     public void getInitializeData(Ticket ticket){
+        // TODO to set the project combo box I need to join the ticket and project tables.
         selectedTicket = ticket;
         ticketTitleTextField.setText(ticket.getTicketTitle());
         ticketIdTextField.setText(String.valueOf(ticket.getTicketId()));
@@ -41,6 +37,8 @@ public class TicketDetailsScreenController implements Initializable {
         dateCreatedLabel.setText(ticket.getDateCreated().toString());
         ticketStatusComboBox.setValue(ticket.getTicketStatusLevel());
         ticketPriorityComboBox.setValue(ticket.getTicketPriorityLevel());
+
+
     }
     public void closeButtonPressed(ActionEvent actionEvent) throws IOException {
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
@@ -48,13 +46,8 @@ public class TicketDetailsScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ticketStatusList.add("Not Started");
-        ticketStatusList.add("In Work");
-        ticketStatusList.add("Complete");
-        ticketStatusComboBox.setItems(ticketStatusList);
-        ticketPriorityList.add("Low");
-        ticketPriorityList.add("Medium");
-        ticketPriorityList.add("High");
-        ticketPriorityComboBox.setItems(ticketPriorityList);
+        ticketStatusComboBox.setItems(DatabaseAccess.getTicketStatusTypes());
+        ticketPriorityComboBox.setItems(DatabaseAccess.getTicketPriorityLevels());
+        projectNameComboBox.setItems(DatabaseAccess.getAllProjectNames());
     }
 }

@@ -20,6 +20,9 @@ public class DatabaseAccess {
     private static ObservableList<Ticket> allTicketsList = FXCollections.observableArrayList();
     private static ObservableList<Employee> allEmployeesList = FXCollections.observableArrayList();
     private static ObservableList<Ticket> selectedTicketsList = FXCollections.observableArrayList();
+    private static ObservableList<String> allProjectNames = FXCollections.observableArrayList();
+    private static ObservableList<String> ticketStatusTypes = FXCollections.observableArrayList();
+    private static ObservableList<String> ticketPriorityLevels = FXCollections.observableArrayList();
 
     public static ObservableList<Project> getAllProjects() {
         allProjectsList.clear();
@@ -119,6 +122,31 @@ public class DatabaseAccess {
             throwables.printStackTrace();
         }
         return selectedTicketsList;
+    }
+
+    public static ObservableList<String> getAllProjectNames(){
+        allProjectsList.clear();
+        allProjectsList = getAllProjects();
+        for(Project p: allProjectsList ){
+            allProjectNames.add(p.getProjectTitle());
+        }
+        return allProjectNames;
+    }
+
+    public static ObservableList<String> getTicketStatusTypes() {
+        ticketStatusTypes.clear();
+        ticketStatusTypes.add("Not Started");
+        ticketStatusTypes.add("In Work");
+        ticketStatusTypes.add("Complete");
+        return ticketStatusTypes;
+    }
+
+    public static ObservableList<String> getTicketPriorityLevels(){
+        ticketPriorityLevels.clear();
+        ticketPriorityLevels.add("Low");
+        ticketPriorityLevels.add("Medium");
+        ticketPriorityLevels.add("High");
+        return ticketPriorityLevels;
     }
 }
 
