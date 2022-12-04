@@ -41,12 +41,12 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="450.0" layoutY="107.0" />
-      <TextField layoutX="450.0" layoutY="159.0" />
-      <TextField editable="false" layoutX="450.0" layoutY="214.0" promptText="Auto Generated" />
-      <ComboBox layoutX="450.0" layoutY="266.0" prefWidth="150.0" promptText="Select Title" />
-      <TextField layoutX="450.0" layoutY="313.0" />
-      <Button layoutX="789.0" layoutY="360.0" mnemonicParsing="false" text="Save" />
+      <TextField fx:id="firstNameTextField" layoutX="450.0" layoutY="107.0" prefHeight="25.0" prefWidth="219.0" />
+      <TextField fx:id="lastNameTextField" layoutX="450.0" layoutY="159.0" prefHeight="25.0" prefWidth="219.0" />
+      <TextField fx:id="employeeIdTextField" editable="false" layoutX="450.0" layoutY="214.0" prefHeight="25.0" prefWidth="219.0" promptText="Auto Generated" />
+      <ComboBox fx:id="jobTitleComboBox" layoutX="450.0" layoutY="266.0" prefHeight="25.0" prefWidth="219.0" promptText="Select Title" />
+      <TextField fx:id="emailAddressTextField" layoutX="450.0" layoutY="313.0" prefHeight="25.0" prefWidth="219.0" />
+      <Button fx:id="saveButton" layoutX="789.0" layoutY="360.0" mnemonicParsing="false" text="Save" />
       <Button fx:id="closeButton" layoutX="840.0" layoutY="360.0" mnemonicParsing="false" onAction="#closeButtonPressed" text="Close" />
    </children>
 </AnchorPane>

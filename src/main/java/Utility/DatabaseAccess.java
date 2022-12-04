@@ -23,6 +23,7 @@ public class DatabaseAccess {
     private static ObservableList<String> allProjectNames = FXCollections.observableArrayList();
     private static ObservableList<String> ticketStatusTypes = FXCollections.observableArrayList();
     private static ObservableList<String> ticketPriorityLevels = FXCollections.observableArrayList();
+    private static ObservableList<String> jobTitles = FXCollections.observableArrayList();
 
     public static ObservableList<Project> getAllProjects() {
         allProjectsList.clear();
@@ -147,6 +148,16 @@ public class DatabaseAccess {
         ticketPriorityLevels.add("Medium");
         ticketPriorityLevels.add("High");
         return ticketPriorityLevels;
+    }
+
+    public static ObservableList<String> getJobTitles(){
+        jobTitles.clear();
+        jobTitles.add("Developer");
+        jobTitles.add("UX Developer");
+        jobTitles.add("Engineer");
+        jobTitles.add("Human Resources");
+        jobTitles.add("Data Analyst");
+        return  jobTitles;
     }
 }
 
