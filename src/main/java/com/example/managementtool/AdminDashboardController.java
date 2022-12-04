@@ -254,7 +254,12 @@ public class AdminDashboardController implements Initializable {
                     ps.execute();
                 }
             }
-            allTicketsTable.setItems(DatabaseAccess.getAllTickets());
+            if(selectedProjectRadioButton.isSelected()) {
+                allTicketsTable.setItems(DatabaseAccess.getSelectedTickets(getSelectedProjectID()));
+            }
+            else{
+                allTicketsTable.setItems(DatabaseAccess.getAllTickets());
+            }
         }catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.WARNING, "No project selected to delete.");
             alert.setTitle("Warning");
