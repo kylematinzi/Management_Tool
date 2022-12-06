@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -46,13 +48,14 @@ public class UserDetailDashboardController implements Initializable {
     private int employeeId;
     private String employeeFirstName;
     private String employeeLastName;
+    private int maxNumber;
 
+    //TODO create the user edit function.
     public void viewUserButtonPressed(ActionEvent actionEvent) throws IOException {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("UserDetailsScreen.fxml"));
             StackPane userDashboardParent = new StackPane();
-            //projectDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("projectDashboard.fxml")));
             userDashboardParent.getChildren().add(loader.load());
             Scene scene = new Scene(userDashboardParent);
             Stage userDetailScene = new Stage();
@@ -102,14 +105,23 @@ public class UserDetailDashboardController implements Initializable {
                 alert.setTitle("Empty Selection");
                 alert.showAndWait();
             } else {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "You are about to delete: "+"\n"
-                        +"Employee ID: "+ employeeId +"\n"+
-                        "User: "+employeeFirstName+" "+employeeLastName);
-                alert.setTitle("Confirmation");
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
-                    ps.setInt(1, employeeId);
-                    ps.execute();
+                // The admin id will not be removable
+                if(employeeId == 111111){
+                    Alert alert = new Alert(Alert.AlertType.WARNING, "Admin may not be deleted.");
+                    alert.setTitle("Warning");
+                    Optional<ButtonType> result = alert.showAndWait();
+
+                }
+                else{
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "You are about to delete: " + "\n"
+                            + "Employee ID: " + employeeId + "\n" +
+                            "User: " + employeeFirstName + " " + employeeLastName);
+                    alert.setTitle("Confirmation");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) {
+                        ps.setInt(1, employeeId);
+                        ps.execute();
+                    }
                 }
             }
             allUsersTable.setItems(DatabaseAccess.getAllEmployees());
@@ -123,6 +135,12 @@ public class UserDetailDashboardController implements Initializable {
     public void closeButtonPressed(ActionEvent actionEvent) throws IOException {
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
     }
+
+    public void generateTable(){
+        allUsersTable.setItems(DatabaseAccess.getAllEmployees());
+    }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

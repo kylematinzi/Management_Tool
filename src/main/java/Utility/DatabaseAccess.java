@@ -25,6 +25,8 @@ public class DatabaseAccess {
     private static ObservableList<String> ticketPriorityLevels = FXCollections.observableArrayList();
     private static ObservableList<String> jobTitles = FXCollections.observableArrayList();
 
+    private static int uniqueEmployeeId = 100;
+
     public static ObservableList<Project> getAllProjects() {
         allProjectsList.clear();
         try {
@@ -159,6 +161,9 @@ public class DatabaseAccess {
         jobTitles.add("Data Analyst");
         return  jobTitles;
     }
+
+
+
 }
 
 

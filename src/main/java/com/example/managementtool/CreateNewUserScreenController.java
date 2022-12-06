@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -41,7 +41,7 @@ public class CreateNewUserScreenController implements Initializable {
     private String password;
     private String jobTitle;
     private String emailAddress;
-    private int count = 25;
+    private int newEmployeeId;
 
 
     public void saveButtonPressed(ActionEvent actionEvent) throws SQLException {
@@ -50,12 +50,12 @@ public class CreateNewUserScreenController implements Initializable {
         + "Username, Job_Title, Email_Address, Employee_Password) VALUES (?,?,?,?,?,?,?)";
         DatabaseQuery.setPreparedStatement(conn, insertStatement);
         try {
-            employeeId = count;
-            firstName = "Jonny";
-            lastName = "Max";
-            userName = "JMax";
-            jobTitle = "Developer";
-            emailAddress = "JohnMax@gmail.com";
+            employeeId = Integer.parseInt(employeeIdTextField.getText());
+            firstName = firstNameTextField.getText();
+            lastName = lastNameTextField.getText();
+            userName = createUserName(firstName, lastName);
+            jobTitle = jobTitleComboBox.getSelectionModel().getSelectedItem().toString();
+            emailAddress = emailAddressTextField.getText();
             password = "Test";
             // Save new user
             PreparedStatement ps = DatabaseQuery.getPreparedStatement();
@@ -67,14 +67,32 @@ public class CreateNewUserScreenController implements Initializable {
             ps.setString(6, emailAddress);
             ps.setString(7, password);
             ps.execute();
-            count++;
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Employee: " + firstName+" "+lastName+ " has been added.");
             alert.setTitle("Confirmation");
             Optional<ButtonType> result = alert.showAndWait();
             ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+            UserDetailDashboardController ff = new UserDetailDashboardController();
+            ff.generateTable();
         } catch (Exception e){
 
         }
+    }
+
+    public String createUserName(String firstName, String lastName){
+        char firstLetter = firstName.charAt(0);
+        userName = firstLetter+lastName;
+        return userName;
+    }
+
+    public int createUniqueEmployeeId() throws SQLException {
+        Connection conn = DatabaseConnection.getConnection();
+        String maxStatement = "SELECT MAX(Employee_Id) from Employee_Table;";
+        DatabaseQuery.setPreparedStatement(conn, maxStatement);
+        PreparedStatement ps = DatabaseQuery.getPreparedStatement();
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        newEmployeeId = rs.getInt(1) + 1;
+        return newEmployeeId;
     }
 
     public void closeButtonPressed(ActionEvent actionEvent) throws IOException {
@@ -84,5 +102,10 @@ public class CreateNewUserScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         jobTitleComboBox.setItems(DatabaseAccess.getJobTitles());
+        try {
+            employeeIdTextField.setText(String.valueOf(createUniqueEmployeeId()));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
