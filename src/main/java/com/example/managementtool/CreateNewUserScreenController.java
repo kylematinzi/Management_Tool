@@ -71,6 +71,7 @@ public class CreateNewUserScreenController implements Initializable {
             alert.setTitle("Confirmation");
             Optional<ButtonType> result = alert.showAndWait();
             ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+            //Refresh the table on the previous screen.
             UserDetailDashboardController ff = new UserDetailDashboardController();
             ff.generateTable();
         } catch (Exception e){

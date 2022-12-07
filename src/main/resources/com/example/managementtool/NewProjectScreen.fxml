@@ -4,13 +4,13 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.managementtool.NewProjectScreenController">
    <children>
@@ -20,13 +20,12 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <ListView layoutX="558.0" layoutY="156.0" prefHeight="283.0" prefWidth="313.0" />
-      <Button layoutX="840.0" layoutY="560.0" mnemonicParsing="false" text="Close" />
-      <Button layoutX="779.0" layoutY="560.0" mnemonicParsing="false" text="Create" />
-      <Button layoutX="738.0" layoutY="119.0" mnemonicParsing="false" text="Assign Team Member" />
-      <ComboBox layoutX="558.0" layoutY="119.0" prefWidth="150.0" promptText="Select Member" />
-      <TextField layoutX="54.0" layoutY="119.0" prefHeight="25.0" prefWidth="175.0" />
-      <DatePicker layoutX="54.0" layoutY="225.0" />
+      <Button fx:id="closeButton" layoutX="840.0" layoutY="560.0" mnemonicParsing="false" onAction="#closeButtonPressed" text="Close" />
+      <Button fx:id="createProjectButton" layoutX="779.0" layoutY="560.0" mnemonicParsing="false" onAction="#createProjectButtonPressed" text="Create" />
+      <Button fx:id="assignTeamMemberButton" layoutX="738.0" layoutY="119.0" mnemonicParsing="false" text="Assign Team Member" />
+      <ComboBox fx:id="projectTeamMembersComboBox" layoutX="483.0" layoutY="119.0" prefWidth="150.0" promptText="Select Member" />
+      <TextField fx:id="projectTitleTextField" layoutX="54.0" layoutY="119.0" prefHeight="25.0" prefWidth="175.0" />
+      <DatePicker fx:id="projectDatePicker" layoutX="54.0" layoutY="225.0" />
       <Label layoutX="54.0" layoutY="90.0" text="Project Title: ">
          <font>
             <Font size="18.0" />
@@ -37,18 +36,25 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="558.0" layoutY="90.0" text="Team Members: ">
+      <Label layoutX="483.0" layoutY="90.0" text="Team Members: ">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="558.0" layoutY="450.0" mnemonicParsing="false" text="View" />
-      <Button layoutX="612.0" layoutY="450.0" mnemonicParsing="false" text="Remove" />
+      <Button fx:id="viewTeamMemberButton" layoutX="484.0" layoutY="450.0" mnemonicParsing="false" text="View" />
+      <Button fx:id="removeTeamMemberButton" layoutX="535.0" layoutY="450.0" mnemonicParsing="false" text="Remove" />
       <Label layoutX="54.0" layoutY="298.0" text="Project Description: ">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextArea layoutX="54.0" layoutY="325.0" prefHeight="200.0" prefWidth="395.0" />
+      <TextArea fx:id="projectDescriptionTextArea" layoutX="54.0" layoutY="325.0" prefHeight="200.0" prefWidth="395.0" />
+      <TableView fx:id="teamMembersTable" layoutX="484.0" layoutY="150.0" prefHeight="293.0" prefWidth="386.0">
+        <columns>
+          <TableColumn prefWidth="89.33328247070312" text="ID" />
+          <TableColumn prefWidth="150.0" text="Team Member" />
+            <TableColumn prefWidth="146.0" text="Role" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

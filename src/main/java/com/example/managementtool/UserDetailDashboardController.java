@@ -136,6 +136,9 @@ public class UserDetailDashboardController implements Initializable {
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
     }
 
+    /**
+     * This method is used to refresh the all users' table after a new user has been added and the screen has been closed.
+     */
     public void generateTable(){
         allUsersTable.setItems(DatabaseAccess.getAllEmployees());
     }
