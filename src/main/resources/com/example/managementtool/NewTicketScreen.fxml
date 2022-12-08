@@ -3,7 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,17 +17,17 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Label layoutX="94.0" layoutY="94.0" text="Ticket Title: ">
+      <Label layoutX="97.0" layoutY="164.0" text="Ticket Title: ">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="396.0" layoutY="164.0" text="Priority: ">
+      <Label layoutX="389.0" layoutY="94.0" text="Priority: ">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="396.0" layoutY="240.0" text="Status:">
+      <Label layoutX="384.0" layoutY="164.0" text="Status:">
          <font>
             <Font size="18.0" />
          </font>
@@ -36,11 +37,10 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ListView layoutX="625.0" layoutY="294.0" prefHeight="200.0" prefWidth="200.0" />
-      <TextField layoutX="94.0" layoutY="120.0" />
-      <TextArea layoutX="94.0" layoutY="351.0" prefHeight="213.0" prefWidth="409.0" />
-      <ComboBox layoutX="396.0" layoutY="192.0" prefWidth="150.0" promptText="Priority Level" />
-      <ComboBox layoutX="396.0" layoutY="269.0" prefWidth="150.0" promptText="Ticket Status" />
+      <TextField fx:id="ticketTitleTextField" layoutX="94.0" layoutY="192.0" />
+      <TextArea fx:id="ticketDescriptionTextArea" layoutX="94.0" layoutY="351.0" prefHeight="213.0" prefWidth="409.0" />
+      <ComboBox fx:id="priorityLevelComboBox" layoutX="384.0" layoutY="120.0" prefWidth="150.0" promptText="Priority Level" />
+      <ComboBox fx:id="statusComboBox" layoutX="384.0" layoutY="192.0" prefWidth="150.0" promptText="Ticket Status" />
       <Label layoutX="664.0" layoutY="94.0" text="Project: ">
          <font>
             <Font size="18.0" />
@@ -56,25 +56,21 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ComboBox layoutX="664.0" layoutY="192.0" prefWidth="150.0" promptText="Team Members" />
-      <ComboBox layoutX="664.0" layoutY="120.0" prefWidth="150.0" promptText="Project Name" />
-      <Button layoutX="739.0" layoutY="560.0" mnemonicParsing="false" text="Create TIcket" />
-      <Button layoutX="840.0" layoutY="560.0" mnemonicParsing="false" text="Close" />
-      <Label layoutX="396.0" layoutY="94.0" text="Date Created:">
+      <ComboBox fx:id="teamMemberComboBox" layoutX="664.0" layoutY="192.0" prefWidth="150.0" promptText="Team Members" />
+      <ComboBox fx:id="projectNameComboBox" layoutX="664.0" layoutY="120.0" prefWidth="150.0" promptText="Project Name" />
+      <Button fx:id="createTicketButton" layoutX="739.0" layoutY="560.0" mnemonicParsing="false" onAction="#createTicketButtonPressed" text="Create Ticket" />
+      <Button fx:id="closeButton" layoutX="840.0" layoutY="560.0" mnemonicParsing="false" onAction="#closeButtonPressed" text="Close" />
+      <Label layoutX="94.0" layoutY="94.0" text="Ticket ID: ">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="374.0" layoutY="119.0" text="Month / Day / Year">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="94.0" layoutY="164.0" text="Ticket ID: ">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <TextField editable="false" layoutX="94.0" layoutY="192.0" promptText="Auto Generated" />
+      <TextField fx:id="ticketIdTextField" editable="false" layoutX="94.0" layoutY="120.0" promptText="Auto Generated" />
+      <TableView fx:id="assignedMemberTable" layoutX="539.0" layoutY="300.0" prefHeight="200.0" prefWidth="333.0">
+        <columns>
+          <TableColumn prefWidth="192.6666259765625" text="Member Name" />
+          <TableColumn prefWidth="140.00006103515625" text="Role" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

@@ -307,6 +307,15 @@ public class AdminDashboardController implements Initializable {
         allProjectsTable.setItems(DatabaseAccess.getAllProjects());
     }
 
+    public void refreshAdminTicketTable(){
+        if(selectedProjectRadioButton.isSelected()){
+            allTicketsTable.setItems(DatabaseAccess.getSelectedTickets(getSelectedProjectID()));
+        }
+        else{
+            allTicketsTable.setItems(DatabaseAccess.getAllTickets());
+        }
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
