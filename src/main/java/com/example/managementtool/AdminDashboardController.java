@@ -303,6 +303,10 @@ public class AdminDashboardController implements Initializable {
         }
     }
 
+    public void refreshAdminProjectTable(){
+        allProjectsTable.setItems(DatabaseAccess.getAllProjects());
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

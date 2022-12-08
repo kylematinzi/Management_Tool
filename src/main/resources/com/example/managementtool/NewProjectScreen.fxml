@@ -24,14 +24,14 @@
       <Button fx:id="createProjectButton" layoutX="779.0" layoutY="560.0" mnemonicParsing="false" onAction="#createProjectButtonPressed" text="Create" />
       <Button fx:id="assignTeamMemberButton" layoutX="738.0" layoutY="119.0" mnemonicParsing="false" text="Assign Team Member" />
       <ComboBox fx:id="projectTeamMembersComboBox" layoutX="483.0" layoutY="119.0" prefWidth="150.0" promptText="Select Member" />
-      <TextField fx:id="projectTitleTextField" layoutX="54.0" layoutY="119.0" prefHeight="25.0" prefWidth="175.0" />
-      <DatePicker fx:id="projectDatePicker" layoutX="54.0" layoutY="225.0" />
-      <Label layoutX="54.0" layoutY="90.0" text="Project Title: ">
+      <TextField fx:id="projectTitleTextField" layoutX="53.0" layoutY="188.0" prefHeight="25.0" prefWidth="175.0" />
+      <DatePicker fx:id="projectDatePicker" layoutX="54.0" layoutY="258.0" />
+      <Label layoutX="53.0" layoutY="160.0" text="Project Title: ">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="54.0" layoutY="191.0" text="Projected Completion Date: ">
+      <Label layoutX="54.0" layoutY="230.0" text="Projected Completion Date: ">
          <font>
             <Font size="18.0" />
          </font>
@@ -56,5 +56,11 @@
             <TableColumn prefWidth="146.0" text="Role" />
         </columns>
       </TableView>
+      <TextField fx:id="projectIdTextField" editable="false" layoutX="53.0" layoutY="119.0" prefHeight="25.0" prefWidth="175.0" />
+      <Label layoutX="53.0" layoutY="90.0" text="Project ID: ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

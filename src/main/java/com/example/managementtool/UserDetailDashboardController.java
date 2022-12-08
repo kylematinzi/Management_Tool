@@ -18,8 +18,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -139,7 +137,7 @@ public class UserDetailDashboardController implements Initializable {
     /**
      * This method is used to refresh the all users' table after a new user has been added and the screen has been closed.
      */
-    public void generateTable(){
+    public void refreshUserTable(){
         allUsersTable.setItems(DatabaseAccess.getAllEmployees());
     }
 

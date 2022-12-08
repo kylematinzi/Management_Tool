@@ -21,6 +21,8 @@ public class NewProjectScreenController implements Initializable {
     @FXML
     private TextField projectTitleTextField;
     @FXML
+    private TextField projectIdTextField;
+    @FXML
     private DatePicker projectDatePicker;
     @FXML
     private TextArea projectDescriptionTextArea;
@@ -44,15 +46,16 @@ public class NewProjectScreenController implements Initializable {
     private LocalDate dateCreated;
     private LocalDate projectedCompletionDate;
     private String projectDescription;
+    private String testDate = "2022-12-12";
 
-    //TODO not saving to the database. I think its the dates.
+
+    //TODO catch the fields if they're left empty.
     public void createProjectButtonPressed(ActionEvent actionEvent) throws SQLException {
         Connection conn = DatabaseConnection.getConnection();
-        String insertStatement = "INSERT INTO Employee_Table(Project_Id, Project_Title, Date_Created, "+
-                "Projected_Completion, Project_Description) VALUES (?,?,?,?,?)";
+        String insertStatement = "INSERT INTO  Project_Table (Project_Id, Project_Title, Date_Created, Projected_Completion, Project_Description) Values (?,?,?,?,?)";
         DatabaseQuery.setPreparedStatement(conn, insertStatement);
         try{
-            projectId = createUniqueProjectId();
+            projectId = Integer.parseInt(projectIdTextField.getText());
             projectTitle = projectTitleTextField.getText();
             dateCreated = LocalDate.now();
             projectedCompletionDate = projectDatePicker.getValue();
@@ -64,14 +67,16 @@ public class NewProjectScreenController implements Initializable {
             ps.setDate(4, Date.valueOf(projectedCompletionDate));
             ps.setString(5, projectDescription);
             ps.execute();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Project: "+ projectTitle+" has been added.");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Project Id: " + projectId+": "+projectTitle+ " has been added.");
             alert.setTitle("Confirmation");
             Optional<ButtonType> result = alert.showAndWait();
             ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+            AdminDashboardController tableRefresh = new AdminDashboardController();
+            tableRefresh.refreshAdminProjectTable();
+        }
+        catch (Exception e){
 
-        } catch (Exception e){}
-
-
+        }
     }
 
     public int createUniqueProjectId() throws SQLException {
@@ -92,6 +97,11 @@ public class NewProjectScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try{
+            projectIdTextField.setText(String.valueOf(createUniqueProjectId()));
+        }
+        catch (Exception e){
 
+        }
     }
 }

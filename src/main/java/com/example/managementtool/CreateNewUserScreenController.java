@@ -44,6 +44,7 @@ public class CreateNewUserScreenController implements Initializable {
     private int newEmployeeId;
 
 
+    //TODO catch the fields if they're left empty.
     public void saveButtonPressed(ActionEvent actionEvent) throws SQLException {
         Connection conn = DatabaseConnection.getConnection();
         String insertStatement = "INSERT INTO Employee_Table(Employee_Id, Employee_First_Name, Employee_Last_Name,"
@@ -72,8 +73,8 @@ public class CreateNewUserScreenController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
             //Refresh the table on the previous screen.
-            UserDetailDashboardController ff = new UserDetailDashboardController();
-            ff.generateTable();
+            UserDetailDashboardController tableRefresh = new UserDetailDashboardController();
+            tableRefresh.refreshUserTable();
         } catch (Exception e){
 
         }
