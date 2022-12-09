@@ -52,7 +52,8 @@ public class NewProjectScreenController implements Initializable {
     //TODO catch the fields if they're left empty.
     public void createProjectButtonPressed(ActionEvent actionEvent) throws SQLException {
         Connection conn = DatabaseConnection.getConnection();
-        String insertStatement = "INSERT INTO  Project_Table (Project_Id, Project_Title, Date_Created, Projected_Completion, Project_Description) Values (?,?,?,?,?)";
+        String insertStatement = "INSERT INTO  Project_Table (Project_Id, Project_Title, Date_Created,"+
+                " Projected_Completion, Project_Description) Values (?,?,?,?,?)";
         DatabaseQuery.setPreparedStatement(conn, insertStatement);
         try{
             projectId = Integer.parseInt(projectIdTextField.getText());

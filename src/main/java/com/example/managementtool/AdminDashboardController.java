@@ -308,12 +308,7 @@ public class AdminDashboardController implements Initializable {
     }
 
     public void refreshAdminTicketTable(){
-        if(selectedProjectRadioButton.isSelected()){
-            allTicketsTable.setItems(DatabaseAccess.getSelectedTickets(getSelectedProjectID()));
-        }
-        else{
-            allTicketsTable.setItems(DatabaseAccess.getAllTickets());
-        }
+        allTicketsTable.setItems(DatabaseAccess.getAllTickets());
     }
 
 

@@ -138,9 +138,10 @@ public class DatabaseAccess {
 
     public static ObservableList<String> getTicketStatusTypes() {
         ticketStatusTypes.clear();
-        ticketStatusTypes.add("Not Started");
+        ticketStatusTypes.add("Not Starte");
         ticketStatusTypes.add("In Work");
         ticketStatusTypes.add("Complete");
+        ticketStatusTypes.add("Unassigned");
         return ticketStatusTypes;
     }
 
