@@ -36,12 +36,12 @@
       </TableView>
       <TableView fx:id="allTicketsTable" layoutX="273.0" layoutY="353.0" prefHeight="200.0" prefWidth="611.0">
         <columns>
-          <TableColumn fx:id="ticketIdColumn" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="ticketTitleColumn" prefWidth="75.0" text="Title" />
-            <TableColumn fx:id="projectTicketIdColumn" prefWidth="110.0" text="Project ID" />
+          <TableColumn fx:id="ticketIdColumn" prefWidth="49.333343505859375" text="ID" />
+          <TableColumn fx:id="ticketTitleColumn" prefWidth="150.0" text="Title" />
+            <TableColumn fx:id="projectTicketIdColumn" prefWidth="61.3333740234375" text="Project ID" />
             <TableColumn fx:id="ticketPriorityColumn" prefWidth="79.33331298828125" text="Priority " />
-            <TableColumn fx:id="ticketStatusColumn" prefWidth="99.99993896484375" text="Status" />
-            <TableColumn fx:id="ticketDescriptionColumn" prefWidth="170.00002034505212" text="Ticket Description" />
+            <TableColumn fx:id="ticketStatusColumn" prefWidth="73.33331298828125" text="Status" />
+            <TableColumn fx:id="ticketDescriptionColumn" prefWidth="197.3333740234375" text="Ticket Description" />
         </columns>
       </TableView>
       <Label layoutX="273.0" layoutY="75.0" text="Projects">

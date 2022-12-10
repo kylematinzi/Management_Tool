@@ -25,13 +25,13 @@ public class TicketDetailsScreenController implements Initializable {
     @FXML
     private ComboBox ticketPriorityComboBox;
     @FXML
-    private ComboBox projectNameComboBox;
+    private ComboBox projectIdComboBox;
     @FXML
     private Label dateCreatedLabel;
     public void getInitializeData(Ticket ticket){
-        // TODO to set the project combo box I need to join the ticket and project tables.
         selectedTicket = ticket;
         ticketTitleTextField.setText(ticket.getTicketTitle());
+        projectIdComboBox.setValue(ticket.getTicketId());
         ticketIdTextField.setText(String.valueOf(ticket.getTicketId()));
         ticketDescriptionTextArea.setText(ticket.getTicketDescription());
         dateCreatedLabel.setText(ticket.getDateCreated().toString());
@@ -48,6 +48,6 @@ public class TicketDetailsScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ticketStatusComboBox.setItems(DatabaseAccess.getTicketStatusTypes());
         ticketPriorityComboBox.setItems(DatabaseAccess.getTicketPriorityLevels());
-        projectNameComboBox.setItems(DatabaseAccess.getAllProjectNames());
+        projectIdComboBox.setItems(DatabaseAccess.getAllProjectId());
     }
 }

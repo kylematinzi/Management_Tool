@@ -21,6 +21,7 @@ public class DatabaseAccess {
     private static ObservableList<Employee> allEmployeesList = FXCollections.observableArrayList();
     private static ObservableList<Ticket> selectedTicketsList = FXCollections.observableArrayList();
     private static ObservableList<String> allProjectNames = FXCollections.observableArrayList();
+    private static ObservableList<Integer> allProjectIds = FXCollections.observableArrayList();
     private static ObservableList<String> ticketStatusTypes = FXCollections.observableArrayList();
     private static ObservableList<String> ticketPriorityLevels = FXCollections.observableArrayList();
     private static ObservableList<String> jobTitles = FXCollections.observableArrayList();
@@ -136,9 +137,19 @@ public class DatabaseAccess {
         return allProjectNames;
     }
 
+    public static ObservableList<Integer> getAllProjectId(){
+        allProjectsList.clear();
+        allProjectsList = getAllProjects();
+        for(Project p: allProjectsList){
+            allProjectIds.add(p.getProjectId());
+        }
+        return allProjectIds;
+    }
+
+
     public static ObservableList<String> getTicketStatusTypes() {
         ticketStatusTypes.clear();
-        ticketStatusTypes.add("Not Starte");
+        ticketStatusTypes.add("Not Started");
         ticketStatusTypes.add("In Work");
         ticketStatusTypes.add("Complete");
         ticketStatusTypes.add("Unassigned");

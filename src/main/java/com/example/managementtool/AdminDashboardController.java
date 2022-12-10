@@ -65,6 +65,8 @@ public class AdminDashboardController implements Initializable {
     private RadioButton allTicketsRadioButton;
     @FXML
     private RadioButton selectedProjectRadioButton;
+    @FXML
+    private ToggleGroup ticketToggleGroup;
     private int projectId;
     private String projectTitle;
     private int ticketId;

@@ -48,9 +48,9 @@ public class NewTicketScreenController implements Initializable {
     private String ticketDescription;
     private int newTicketId;
 
+    private final LocalDate defaultEndDate = LocalDate.parse("2050-01-01");
+
     //TODO fix the radio button selection. Need to refresh both selected and all.
-    //TODO Not Started option will not work for ticket creation. It wont work becuase the table is only taking not starte.
-    // I need to figure out how to add one more character.
     //TODO need to add input validation
     public void createTicketButtonPressed(ActionEvent actionEvent) throws SQLException {
         Connection conn = DatabaseConnection.getConnection();
@@ -59,14 +59,12 @@ public class NewTicketScreenController implements Initializable {
         DatabaseQuery.setPreparedStatement(conn, insertStatement);
         try{
             ticketId = Integer.parseInt(ticketIdTextField.getText());
-            // need to change what's in the project combo box to project not just names.
-            //projectAssociation = (int) projectNameComboBox.getValue();
-            projectAssociation = 1001; // temporary
+            projectAssociation = (int) projectNameComboBox.getValue();
             ticketTitle = ticketTitleTextField.getText();
             ticketPriorityLevel = priorityLevelComboBox.getValue().toString();
             ticketStatus = statusComboBox.getValue().toString();
             dateCreated = LocalDate.now();
-            dateCompleted = LocalDate.now(); // figure this out later probably give a filler date.
+            dateCompleted = defaultEndDate;
             ticketDescription = ticketDescriptionTextArea.getText();
             PreparedStatement ps = DatabaseQuery.getPreparedStatement();
             ps.setInt(1, ticketId);
@@ -108,7 +106,7 @@ public class NewTicketScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         priorityLevelComboBox.setItems(DatabaseAccess.getTicketPriorityLevels());
         statusComboBox.setItems(DatabaseAccess.getTicketStatusTypes());
-        //projectNameComboBox.setItems(DatabaseAccess.getAllProjects());
+        projectNameComboBox.setItems(DatabaseAccess.getAllProjectId());
         try{
             ticketIdTextField.setText(String.valueOf(createUniqueTicketId()));
         }

@@ -41,7 +41,7 @@
       <TextArea fx:id="ticketDescriptionTextArea" layoutX="94.0" layoutY="351.0" prefHeight="213.0" prefWidth="409.0" />
       <ComboBox fx:id="ticketPriorityComboBox" layoutX="396.0" layoutY="192.0" prefWidth="150.0" promptText="Priority Level" />
       <ComboBox fx:id="ticketStatusComboBox" layoutX="396.0" layoutY="269.0" prefWidth="150.0" promptText="Ticket Status" />
-      <Label layoutX="664.0" layoutY="94.0" text="Project: ">
+      <Label layoutX="664.0" layoutY="94.0" text="Project Id: ">
          <font>
             <Font size="18.0" />
          </font>
@@ -57,7 +57,7 @@
          </font>
       </Label>
       <ComboBox layoutX="664.0" layoutY="192.0" prefWidth="150.0" promptText="Team Members" />
-      <ComboBox fx:id="projectNameComboBox" layoutX="664.0" layoutY="120.0" prefWidth="150.0" promptText="Project Name" />
+      <ComboBox fx:id="projectIdComboBox" layoutX="664.0" layoutY="120.0" prefWidth="150.0" promptText="Project Id" />
       <Button layoutX="739.0" layoutY="560.0" mnemonicParsing="false" text="Save Changes " />
       <Button fx:id="closeButton" layoutX="840.0" layoutY="560.0" mnemonicParsing="false" onAction="#closeButtonPressed" text="Close" />
       <Label layoutX="396.0" layoutY="94.0" text="Date Created:">
