@@ -23,12 +23,12 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Label layoutX="28.0" layoutY="81.0" text="Project Title: ">
+      <Label layoutX="18.0" layoutY="94.0" text="Project Title: ">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="projectTitleLabel" layoutX="145.0" layoutY="81.0" prefHeight="27.0" prefWidth="293.0" text="Name of Project">
+      <Label fx:id="projectTitleLabel" layoutX="122.0" layoutY="94.0" prefHeight="27.0" prefWidth="293.0" text="Name of Project">
          <font>
             <Font size="18.0" />
          </font>
@@ -46,7 +46,7 @@
             <Label layoutX="13.0" layoutY="57.0" text="Projected Completion: " />
             <Label layoutX="13.0" layoutY="83.0" text="Days Open: " />
             <Label layoutX="14.0" layoutY="108.0" text="Open Tickets: " />
-            <Label layoutX="13.0" layoutY="133.0" text="Completed TIckets:" />
+            <Label layoutX="13.0" layoutY="133.0" text="Completed Tickets:" />
             <Label layoutX="89.0" layoutY="169.0" text="25%">
                <font>
                   <Font size="11.0" />
@@ -68,7 +68,7 @@
       <ListView fx:id="teamMembersListView" layoutX="28.0" layoutY="362.0" prefHeight="169.0" prefWidth="200.0" />
       <Button fx:id="viewTeamMemberButton" layoutX="28.0" layoutY="540.0" mnemonicParsing="false" onAction="#viewTeamMemberButtonPressed" text="View" />
       <Button fx:id="removeTeamMemberButton" layoutX="79.0" layoutY="540.0" mnemonicParsing="false" onAction="#removeTeamMemberButtonPressed" text="Remove" />
-      <Label layoutX="481.0" layoutY="81.0" text="Ticket Information: ">
+      <Label layoutX="482.0" layoutY="94.0" text="Ticket Information: ">
          <font>
             <Font size="18.0" />
          </font>
@@ -103,7 +103,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="ticketTableView" layoutX="481.0" layoutY="122.0" prefHeight="200.0" prefWidth="397.0">
+      <TableView fx:id="ticketTableView" layoutX="482.0" layoutY="122.0" prefHeight="200.0" prefWidth="397.0">
         <columns>
           <TableColumn fx:id="ticketIdColumn" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="ticketTitleColumn" prefWidth="75.0" text="Title" />
@@ -111,5 +111,15 @@
             <TableColumn fx:id="ticketDescriptionColumn" prefWidth="170.00002034505206" text="Description" />
         </columns>
       </TableView>
+      <Label layoutX="18.0" layoutY="68.0" text="Project ID: ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="projectIdLabel" layoutX="105.0" layoutY="68.0" prefHeight="27.0" prefWidth="293.0" text="Project ID">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

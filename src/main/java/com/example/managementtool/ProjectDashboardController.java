@@ -15,8 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Optional;
@@ -27,6 +26,8 @@ public class ProjectDashboardController implements Initializable {
     private int count = 0;
     @FXML
     private Label projectTitleLabel;
+    @FXML
+    private Label projectIdLabel;
     @FXML
     private Label dateCreatedLabel;
     @FXML
@@ -74,12 +75,43 @@ public class ProjectDashboardController implements Initializable {
     @FXML
     private TableColumn<Ticket, String> ticketDescriptionColumn;
 
+    @FXML
+    private ProgressBar projectProgressBar;
+
     private Project selectedProject;
     private int daysOpen;
     private int ticketId;
     private String ticketTitle;
+    private String projectTitle;
+    private LocalDate projectedCompletion;
+    private String projectDescription;
+    private int projectId;
 
-    public void saveChangesButtonPressed(ActionEvent actionEvent){
+    public void saveChangesButtonPressed(ActionEvent actionEvent) throws SQLException {
+        try {
+            Connection conn = DatabaseConnection.getConnection();
+            String updateStatement = "UPDATE Project_Table SET Project_Title = ?, Projected_Completion = ?, Project_Description = ? " +
+                    "WHERE Project_Id = ?";
+            DatabaseQuery.setPreparedStatement(conn, updateStatement);
+            projectTitle = projectTitleTextField.getText();
+            projectedCompletion = projectedCompletionDatePicker.getValue();
+            projectDescription = projectDescriptionTextArea.getText();
+            projectId = Integer.parseInt(projectIdLabel.getText());
+            PreparedStatement ps = DatabaseQuery.getPreparedStatement();
+            ps.setString(1, projectTitle);
+            ps.setDate(2, Date.valueOf(projectedCompletion));
+            ps.setString(3, projectDescription);
+            ps.setInt(4, projectId);
+            ps.execute();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Project Id: " + projectId+": "+projectTitle+ " has been updated.");
+            alert.setTitle("Confirmation");
+            Optional<ButtonType> result = alert.showAndWait();
+            ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+            AdminDashboardController tableRefresh = new AdminDashboardController();
+            tableRefresh.refreshAdminProjectTable();
+        }
+        catch(Exception e){
+        }
 
     }
 
@@ -166,6 +198,7 @@ public class ProjectDashboardController implements Initializable {
     public void getInitializeData(Project project){
         selectedProject = project;
         projectTitleLabel.setText(project.getProjectTitle());
+        projectIdLabel.setText(String.valueOf(project.getProjectId()));
         dateCreatedLabel.setText(project.getDateCreated().toString());
         projectedCompletionLabel.setText(project.getDateCompleted().toString());
         projectDescriptionTextArea.setText(project.getProjectDescription());
@@ -180,8 +213,6 @@ public class ProjectDashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // for some reason this is throwing a nullpointer exception
-//        ticketTableView.setItems(DatabaseAccess.getAllTickets());
-//        ticketIdColumn.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
+
     }
 }
