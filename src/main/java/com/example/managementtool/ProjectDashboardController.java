@@ -31,8 +31,6 @@ public class ProjectDashboardController implements Initializable {
     @FXML
     private Label dateCreatedLabel;
     @FXML
-    private Label projectedCompletionLabel;
-    @FXML
     private Label daysOpenLabel;
     @FXML
     private Label openTicketsLabel;
@@ -87,6 +85,7 @@ public class ProjectDashboardController implements Initializable {
     private String projectDescription;
     private int projectId;
 
+    //TODO need to add input validation
     public void saveChangesButtonPressed(ActionEvent actionEvent) throws SQLException {
         try {
             Connection conn = DatabaseConnection.getConnection();
@@ -199,9 +198,10 @@ public class ProjectDashboardController implements Initializable {
         selectedProject = project;
         projectTitleLabel.setText(project.getProjectTitle());
         projectIdLabel.setText(String.valueOf(project.getProjectId()));
+        projectTitleTextField.setText(project.getProjectTitle());
         dateCreatedLabel.setText(project.getDateCreated().toString());
-        projectedCompletionLabel.setText(project.getDateCompleted().toString());
         projectDescriptionTextArea.setText(project.getProjectDescription());
+        projectedCompletionDatePicker.setValue(project.getDateCompleted());
         daysOpen = Period.between(project.getDateCreated(), LocalDate.now()).getDays();
         daysOpenLabel.setText(String.valueOf(daysOpen));
         ticketTableView.setItems(DatabaseAccess.getSelectedTickets(project.getProjectId()));

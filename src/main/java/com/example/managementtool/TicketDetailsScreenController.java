@@ -1,6 +1,7 @@
 package com.example.managementtool;
 
 import Utility.DatabaseAccess;
+import Utility.DatabaseConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 
 
@@ -38,6 +40,15 @@ public class TicketDetailsScreenController implements Initializable {
         ticketStatusComboBox.setValue(ticket.getTicketStatusLevel());
         ticketPriorityComboBox.setValue(ticket.getTicketPriorityLevel());
 
+
+    }
+
+    public void saveChangesButtonPressed(ActionEvent actionEvent){
+        Connection conn = DatabaseConnection.getConnection();
+        String updateStatement = "UPDATE Ticket_Table SET";
+    }
+
+    public void removeTeamMemberButtonPressed(ActionEvent actionEvent){
 
     }
     public void closeButtonPressed(ActionEvent actionEvent) throws IOException {

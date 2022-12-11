@@ -139,6 +139,7 @@ public class DatabaseAccess {
 
     public static ObservableList<Integer> getAllProjectId(){
         allProjectsList.clear();
+        allProjectIds.clear();
         allProjectsList = getAllProjects();
         for(Project p: allProjectsList){
             allProjectIds.add(p.getProjectId());
