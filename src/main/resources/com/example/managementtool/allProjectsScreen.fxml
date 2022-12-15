@@ -24,7 +24,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <ProgressBar layoutX="479.0" layoutY="548.0" prefWidth="200.0" progress="0.44" />
+      <ProgressBar fx:id="projectCompletionBar" layoutX="479.0" layoutY="548.0" prefWidth="200.0" progress="0.44" />
       <Label layoutX="479.0" layoutY="509.0" text="Project Completion">
          <font>
             <Font name="System Bold" size="18.0" />

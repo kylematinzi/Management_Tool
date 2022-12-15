@@ -35,7 +35,7 @@
       </Label>
       <Pane layoutX="28.0" layoutY="122.0" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <ProgressBar fx:id="progressBar" layoutX="13.0" layoutY="168.0" prefHeight="18.0" prefWidth="175.0" progress="0.34" />
+            <ProgressBar fx:id="projectProgressBar" layoutX="13.0" layoutY="159.0" prefHeight="27.0" prefWidth="175.0" progress="0.34" />
             <Label layoutX="14.0" layoutY="6.0" text="Project Details: ">
                <font>
                   <Font size="18.0" />
@@ -46,9 +46,9 @@
             <Label layoutX="13.0" layoutY="66.0" text="Days Open: " />
             <Label layoutX="12.0" layoutY="100.0" text="Open Tickets: " />
             <Label layoutX="13.0" layoutY="133.0" text="Completed Tickets:" />
-            <Label layoutX="89.0" layoutY="169.0" text="25%">
+            <Label fx:id="progressBarLabel" layoutX="86.0" layoutY="163.0" text="25%">
                <font>
-                  <Font size="11.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
             </Label>
             <Label fx:id="dateCreatedLabel" layoutX="96.0" layoutY="33.0" text="Label" />

@@ -37,11 +37,11 @@ public class ProjectDashboardController implements Initializable {
     @FXML
     private Label completedTicketsLabel;
     @FXML
+    private Label progressBarLabel;
+    @FXML
     private TextField projectTitleTextField;
     @FXML
     private DatePicker projectedCompletionDatePicker;
-    @FXML
-    private ProgressBar progressBar;
     @FXML
     private ListView teamMembersListView;
     @FXML
@@ -196,6 +196,8 @@ public class ProjectDashboardController implements Initializable {
 
     public void getInitializeData(Project project){
         selectedProject = project;
+        projectProgressBar.setProgress(.8);
+        progressBarLabel.setText(String.valueOf(Math.round(100*.8)+"%"));
         projectTitleLabel.setText(project.getProjectTitle());
         projectIdLabel.setText(String.valueOf(project.getProjectId()));
         projectTitleTextField.setText(project.getProjectTitle());

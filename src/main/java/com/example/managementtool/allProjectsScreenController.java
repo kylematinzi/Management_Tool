@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,6 +24,8 @@ public class allProjectsScreenController implements Initializable {
     private ListView<String> projectsListView;
     @FXML
     private PieChart projectsPieChart;
+    @FXML
+    private ProgressBar projectCompletionBar;
 
     private static final ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
@@ -46,6 +49,7 @@ public class allProjectsScreenController implements Initializable {
         try {
             projectsListView.setItems(DatabaseAccess.getAllProjectNames());
             projectsPieChart.setData(fillProjectsPieChart());
+            projectCompletionBar.setProgress(.9);
         }catch (Exception e){
 
         }
