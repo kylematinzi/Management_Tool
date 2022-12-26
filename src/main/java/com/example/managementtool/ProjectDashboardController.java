@@ -123,7 +123,6 @@ public class ProjectDashboardController implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("TicketDetailsScreen.fxml"));
             StackPane ticketDetailParent = new StackPane();
-            //projectDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("projectDashboard.fxml")));
             ticketDetailParent.getChildren().add(loader.load());
             Scene scene = new Scene(ticketDetailParent);
             Stage ticketDetailScreen = new Stage();
@@ -142,7 +141,6 @@ public class ProjectDashboardController implements Initializable {
             alert.setTitle("Warning");
             Optional<ButtonType> result = alert.showAndWait();
         }
-        System.out.println("edit ticket button pressed");
     }
 
     public void deleteTicketButtonPressed(ActionEvent actionEvent){
@@ -197,7 +195,7 @@ public class ProjectDashboardController implements Initializable {
     public void getInitializeData(Project project){
         selectedProject = project;
         projectProgressBar.setProgress(.8);
-        progressBarLabel.setText(String.valueOf(Math.round(100*.8)+"%"));
+        progressBarLabel.setText(Math.round(100 * .8) + "%");
         projectTitleLabel.setText(project.getProjectTitle());
         projectIdLabel.setText(String.valueOf(project.getProjectId()));
         projectTitleTextField.setText(project.getProjectTitle());

@@ -6,6 +6,7 @@ import com.example.managementtool.Ticket;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -130,6 +131,7 @@ public class DatabaseAccess {
 
     public static ObservableList<String> getAllProjectNames(){
         allProjectsList.clear();
+        allProjectNames.clear();
         allProjectsList = getAllProjects();
         for(Project p: allProjectsList ){
             allProjectNames.add(p.getProjectTitle());
@@ -174,6 +176,58 @@ public class DatabaseAccess {
         jobTitles.add("Data Analyst");
         return  jobTitles;
     }
+
+    public static int countAllTickets(int projectId) throws SQLException {
+        Connection conn = DatabaseConnection.getConnection();
+        String countStatement = "SELECT COUNT(*) as Counted FROM Ticket_Table WHERE Project_Association = ?;";
+        DatabaseQuery.setPreparedStatement(conn, countStatement);
+        PreparedStatement ps = DatabaseQuery.getPreparedStatement();
+        ps.setInt(1, projectId);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        int countNumber = rs.getInt(1);
+        System.out.println("COUNT Total Tickets: "+ countNumber);
+        return countNumber;
+    }
+
+    public static int countNotStartedTickets(int projectId) throws SQLException {
+        Connection conn = DatabaseConnection.getConnection();
+        String countStatement = "SELECT COUNT(*) as Counted FROM Ticket_Table WHERE Ticket_Status = 'Not Started' && Project_Association = ?;";
+        DatabaseQuery.setPreparedStatement(conn, countStatement);
+        PreparedStatement ps = DatabaseQuery.getPreparedStatement();
+        ps.setInt(1, projectId);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        int countNumber = rs.getInt(1);
+        System.out.println("COUNT Not Started: "+ countNumber);
+        return countNumber;
+    }
+    public static int countInWorkTickets(int projectId) throws SQLException {
+        Connection conn = DatabaseConnection.getConnection();
+        String countStatement = "SELECT COUNT(*) as Counted FROM Ticket_Table WHERE Ticket_Status = 'In Work' && Project_Association = ?;";
+        DatabaseQuery.setPreparedStatement(conn, countStatement);
+        PreparedStatement ps = DatabaseQuery.getPreparedStatement();
+        ps.setInt(1, projectId);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        int countNumber = rs.getInt(1);
+        System.out.println("COUNT In Work: "+ countNumber);
+        return countNumber;
+    }
+
+    public static int countCompletedTickets(int projectId) throws SQLException {
+        Connection conn = DatabaseConnection.getConnection();
+        String countStatement = "SELECT COUNT(*) as Counted FROM Ticket_Table WHERE Ticket_Status = 'Complete' && Project_Association = ?;";
+        DatabaseQuery.setPreparedStatement(conn, countStatement);
+        PreparedStatement ps = DatabaseQuery.getPreparedStatement();
+        ps.setInt(1, projectId);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        int countNumber = rs.getInt(1);
+        System.out.println("COUNT Complete: "+ countNumber);
+        return countNumber;
+    }
+
 
 
 

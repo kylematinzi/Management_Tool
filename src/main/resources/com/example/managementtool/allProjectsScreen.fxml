@@ -3,8 +3,9 @@
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -18,29 +19,28 @@
          </font>
       </Label>
       <Button fx:id="closeButton" layoutX="826.0" layoutY="557.0" mnemonicParsing="false" onAction="#closeButtonPressed" text="Close" />
-      <ListView fx:id="projectsListView" layoutX="62.0" layoutY="109.0" prefHeight="408.0" prefWidth="201.0" />
-      <Label layoutX="129.0" layoutY="82.0" text="Projects">
+      <ProgressBar fx:id="projectCompletionBar" layoutX="526.0" layoutY="433.0" prefHeight="27.0" prefWidth="200.0" progress="0.44" />
+      <Label layoutX="544.0" layoutY="406.0" text="Project Completion:">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <ProgressBar fx:id="projectCompletionBar" layoutX="479.0" layoutY="548.0" prefWidth="200.0" progress="0.44" />
-      <Label layoutX="479.0" layoutY="509.0" text="Project Completion">
+      <PieChart fx:id="projectsPieChart" layoutX="450.0" layoutY="92.0" prefHeight="286.0" prefWidth="352.0" />
+      <Label layoutX="506.0" layoutY="471.0" text="Projected Completion Date: ">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <PieChart fx:id="projectsPieChart" layoutX="457.0" layoutY="190.0" prefHeight="286.0" prefWidth="352.0" />
-      <Label layoutX="466.0" layoutY="173.0" text="Pie chart below shows tickets started, in work, completed: " />
-      <Label layoutX="469.0" layoutY="124.0" text="Projected Completion Date: ">
+      <Label layoutX="606.0" layoutY="498.0" text="Date">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="708.0" layoutY="124.0" text="Date">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
+      <TableView fx:id="allProjectsTableView" layoutX="29.0" layoutY="92.0" onMouseClicked="#mouseClicked" prefHeight="484.0" prefWidth="321.0">
+        <columns>
+          <TableColumn fx:id="projectIdColumn" prefWidth="97.33334541320801" text="ID" />
+          <TableColumn fx:id="projectTitleColumn" prefWidth="222.66666412353516" text="Title" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
