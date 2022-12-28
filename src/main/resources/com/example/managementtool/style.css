@@ -1,0 +1,13 @@
+.default-color0.chart-pie{ -fx-pie-color: #f70202;
+}
+
+.default-color1.chart-pie{ -fx-pie-color: #d6f702;
+}
+
+.default-color2.chart-pie{ -fx-pie-color: #23f702;
+
+}
+
+// red #f70202
+// green #23f702
+// yellow #d6f702
