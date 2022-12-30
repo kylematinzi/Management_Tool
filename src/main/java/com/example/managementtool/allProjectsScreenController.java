@@ -23,6 +23,10 @@ public class allProjectsScreenController implements Initializable {
     @FXML
     private Button closeButton;
     @FXML
+    private Label projectedDateLabel;
+    @FXML
+    private Label completionPercentLabel;
+    @FXML
     private TableView<Project> allProjectsTableView;
     @FXML
     private PieChart projectsPieChart;
@@ -32,6 +36,7 @@ public class allProjectsScreenController implements Initializable {
     private TableColumn<Project, Integer> projectIdColumn;
     @FXML
     private TableColumn<Project, String> projectTitleColumn;
+    private int selectedProjectId;
 
     private static final ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
@@ -59,7 +64,11 @@ public class allProjectsScreenController implements Initializable {
     }
 
     public void mouseClicked(MouseEvent mouseEvent) throws SQLException {
-        projectsPieChart.setData(fillProjectsPieChart(allProjectsTableView.getSelectionModel().getSelectedItem().getProjectId()));
+        selectedProjectId = allProjectsTableView.getSelectionModel().getSelectedItem().getProjectId();
+        projectsPieChart.setData(fillProjectsPieChart(selectedProjectId));
+        projectedDateLabel.setText(String.valueOf(allProjectsTableView.getSelectionModel().getSelectedItem().getDateCompleted()));
+        projectCompletionBar.setProgress((DatabaseAccess.projectCompletionPercentage(selectedProjectId)) / 100);
+        completionPercentLabel.setText((int) DatabaseAccess.projectCompletionPercentage(selectedProjectId)+"%");
     }
     public void closeButtonPressed(ActionEvent actionEvent) throws IOException {
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
@@ -70,11 +79,14 @@ public class allProjectsScreenController implements Initializable {
         try {
             allProjectsTableView.setItems(DatabaseAccess.getAllProjects());
             allProjectsTableView.getSelectionModel().select(0);
+            selectedProjectId = allProjectsTableView.getSelectionModel().getSelectedItem().getProjectId();
             projectIdColumn.setCellValueFactory((new PropertyValueFactory<>("projectId")));
             projectTitleColumn.setCellValueFactory((new PropertyValueFactory<>("projectTitle")));
+            projectedDateLabel.setText(String.valueOf(allProjectsTableView.getSelectionModel().getSelectedItem().getDateCompleted()));
             //Chart fill
             projectsPieChart.setData(fillProjectsPieChart(allProjectsTableView.getSelectionModel().getSelectedItem().getProjectId()));
-            projectCompletionBar.setProgress(.9);
+            projectCompletionBar.setProgress((DatabaseAccess.projectCompletionPercentage(selectedProjectId)) / 100);
+            completionPercentLabel.setText((int) DatabaseAccess.projectCompletionPercentage(selectedProjectId)+"%");
         }catch (Exception e){
 
         }

@@ -228,6 +228,14 @@ public class DatabaseAccess {
         return countNumber;
     }
 
+    public static float projectCompletionPercentage(int projectId) throws SQLException {
+        float allTickets, completedTickets, projectPercentage;
+        allTickets = countAllTickets(projectId);
+        completedTickets = countCompletedTickets(projectId);
+        projectPercentage = Math.round((completedTickets/allTickets) * 100);
+        return projectPercentage;
+    }
+
 
 
 

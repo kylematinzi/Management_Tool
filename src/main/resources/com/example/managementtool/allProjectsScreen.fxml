@@ -31,7 +31,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="606.0" layoutY="498.0" text="Date">
+      <Label fx:id="projectedDateLabel" layoutX="576.0" layoutY="498.0" text="####-##-##">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -42,5 +42,10 @@
           <TableColumn fx:id="projectTitleColumn" prefWidth="222.66666412353516" text="Title" />
         </columns>
       </TableView>
+      <Label fx:id="completionPercentLabel" layoutX="609.0" layoutY="433.0" text="##%">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
