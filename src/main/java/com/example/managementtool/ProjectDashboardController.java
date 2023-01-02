@@ -14,8 +14,10 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Optional;
@@ -114,8 +116,18 @@ public class ProjectDashboardController implements Initializable {
 
     }
 
-    public void addTicketButtonPressed(ActionEvent actionEvent){
-        System.out.println("add ticket button pressed");
+    public void addTicketButtonPressed(ActionEvent actionEvent) throws IOException {
+        StackPane newTicketParent = new StackPane();
+        newTicketParent.getChildren().add(FXMLLoader.load(getClass().getResource("NewTicketScreen.fxml")));
+        Scene scene = new Scene(newTicketParent);
+        Stage newTicketScene = new Stage();
+        newTicketScene.setScene(scene);
+        newTicketScene.initModality(Modality.WINDOW_MODAL);
+        newTicketScene.initOwner(((((Button)actionEvent.getSource()).getScene().getWindow())));
+        newTicketScene.sizeToScene();
+        newTicketScene.setResizable(false);
+        newTicketScene.setTitle("Project Management System");
+        newTicketScene.show();
     }
 
     public void editTicketButtonPressed(ActionEvent actionEvent){
@@ -192,11 +204,13 @@ public class ProjectDashboardController implements Initializable {
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
     }
 
-    public void getInitializeData(Project project){
+    public void getInitializeData(Project project) throws SQLException {
         selectedProject = project;
-        projectProgressBar.setProgress(.8);
-        progressBarLabel.setText(Math.round(100 * .8) + "%");
+        projectProgressBar.setProgress(DatabaseAccess.projectCompletionPercentage(selectedProject.getProjectId())/100);
+        progressBarLabel.setText((int) DatabaseAccess.projectCompletionPercentage(selectedProject.getProjectId())+"%");
         projectTitleLabel.setText(project.getProjectTitle());
+        openTicketsLabel.setText(String.valueOf(DatabaseAccess.countAllTickets(selectedProject.getProjectId())-DatabaseAccess.countCompletedTickets(selectedProject.getProjectId())));
+        completedTicketsLabel.setText(String.valueOf(DatabaseAccess.countCompletedTickets(selectedProject.getProjectId())));
         projectIdLabel.setText(String.valueOf(project.getProjectId()));
         projectTitleTextField.setText(project.getProjectTitle());
         dateCreatedLabel.setText(project.getDateCreated().toString());
@@ -209,6 +223,11 @@ public class ProjectDashboardController implements Initializable {
         ticketTitleColumn.setCellValueFactory(new PropertyValueFactory<>("ticketTitle"));
         ticketStatusColumn.setCellValueFactory(new PropertyValueFactory<>("ticketStatusLevel"));
         ticketDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("ticketDescription"));
+    }
+
+    public void refreshProjectDashboardView(){
+        ticketTableView.setItems(DatabaseAccess.getSelectedTickets(Integer.parseInt(projectIdLabel.getText())));
+
     }
 
     @Override

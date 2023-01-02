@@ -6,22 +6,23 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * This class is the screen controller for the all projects screen. This screen displays a list off all the projects held
+ * in the database, a pie chart to show the currently selected projects completion breakdown, the project's current
+ * completion percentage, and the project's projected completion date.
+ */
 public class allProjectsScreenController implements Initializable {
 
-    @FXML
-    private Button closeButton;
     @FXML
     private Label projectedDateLabel;
     @FXML
@@ -37,32 +38,29 @@ public class allProjectsScreenController implements Initializable {
     @FXML
     private TableColumn<Project, String> projectTitleColumn;
     private int selectedProjectId;
-
     private static final ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
-
     /**
-     * This function needs to fill the pie chart. Idea is to count total amount of tickets for the selected project. Then
-     * count each type of project. Then fill the chart. Going to need counters for each type. I feel like there's a better
-     * way to do this,  I'll figure that out later. I'm going to remove unassigned option.
-     * @return
+     * This function gathers the data needed to fill the all projects screen pie chart.
+     * @return Data used to fill the all projects pie chart.
      */
     public static ObservableList<PieChart.Data> fillProjectsPieChart(int projectId) throws SQLException {
-        // need to add project id to pie chart parameter
-        int notStarted, inWork, complete, totalTickets;
+        int notStarted, inWork, complete;
         notStarted = DatabaseAccess.countNotStartedTickets(projectId);
         inWork = DatabaseAccess.countInWorkTickets(projectId);
         complete = DatabaseAccess.countCompletedTickets(projectId);
-        totalTickets = DatabaseAccess.countAllTickets(projectId);
-        // just test data
         pieChartData.clear();
         pieChartData.add(new PieChart.Data("Not started: "+ notStarted, notStarted));
         pieChartData.add(new PieChart.Data("In work: "+ inWork, inWork));
         pieChartData.add(new PieChart.Data("Complete: "+ complete, complete));
-        System.out.println(pieChartData);
         return pieChartData;
     }
 
+    /**
+     * This function is used to find which project the user has clicked on in the all projects table.
+     * @param mouseEvent mouse click
+     * @throws SQLException
+     */
     public void mouseClicked(MouseEvent mouseEvent) throws SQLException {
         selectedProjectId = allProjectsTableView.getSelectionModel().getSelectedItem().getProjectId();
         projectsPieChart.setData(fillProjectsPieChart(selectedProjectId));

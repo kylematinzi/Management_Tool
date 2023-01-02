@@ -155,7 +155,6 @@ public class DatabaseAccess {
         ticketStatusTypes.add("Not Started");
         ticketStatusTypes.add("In Work");
         ticketStatusTypes.add("Complete");
-        ticketStatusTypes.add("Unassigned");
         return ticketStatusTypes;
     }
 
@@ -186,7 +185,6 @@ public class DatabaseAccess {
         ResultSet rs = ps.executeQuery();
         rs.next();
         int countNumber = rs.getInt(1);
-        System.out.println("COUNT Total Tickets: "+ countNumber);
         return countNumber;
     }
 
@@ -199,7 +197,6 @@ public class DatabaseAccess {
         ResultSet rs = ps.executeQuery();
         rs.next();
         int countNumber = rs.getInt(1);
-        System.out.println("COUNT Not Started: "+ countNumber);
         return countNumber;
     }
     public static int countInWorkTickets(int projectId) throws SQLException {
@@ -211,7 +208,6 @@ public class DatabaseAccess {
         ResultSet rs = ps.executeQuery();
         rs.next();
         int countNumber = rs.getInt(1);
-        System.out.println("COUNT In Work: "+ countNumber);
         return countNumber;
     }
 
@@ -224,7 +220,6 @@ public class DatabaseAccess {
         ResultSet rs = ps.executeQuery();
         rs.next();
         int countNumber = rs.getInt(1);
-        System.out.println("COUNT Complete: "+ countNumber);
         return countNumber;
     }
 
