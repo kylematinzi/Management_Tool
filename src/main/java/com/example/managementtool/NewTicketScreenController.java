@@ -63,12 +63,17 @@ public class NewTicketScreenController implements Initializable {
         DatabaseQuery.setPreparedStatement(conn, insertStatement);
         try{
             int ticketId = Integer.parseInt(ticketIdTextField.getText());
-            int projectAssociation = (int) projectNameComboBox.getValue();
+            int projectAssociation = projectNameComboBox.getValue();
             String ticketTitle = ticketTitleTextField.getText();
-            String ticketPriorityLevel = priorityLevelComboBox.getValue().toString();
-            String ticketStatus = statusComboBox.getValue().toString();
+            String ticketPriorityLevel = priorityLevelComboBox.getValue();
+            String ticketStatus = statusComboBox.getValue();
             LocalDate dateCreated = LocalDate.now();
             String ticketDescription = ticketDescriptionTextArea.getText();
+            System.out.println(projectNameComboBox.getValue().toString());
+            // TODO finish input validation
+            if (projectNameComboBox.getValue().toString().equals("Project Id") || ticketTitle.isEmpty()){
+                System.out.println("FOUND FOUND FOUND");
+            }
             PreparedStatement ps = DatabaseQuery.getPreparedStatement();
             ps.setInt(1, ticketId);
             ps.setInt(2, projectAssociation);
@@ -89,10 +94,15 @@ public class NewTicketScreenController implements Initializable {
             screenRefresh.refreshProjectDashboardView();
         }
         catch (Exception e){
-
         }
     }
 
+    /**
+     * This method creates a unique ticket id by finding the highest current ticket id and incrementing the next id by
+     * plus one.
+     * @return unique id in the form of an int.
+     * @throws SQLException
+     */
     public int createUniqueTicketId() throws SQLException {
         Connection conn = DatabaseConnection.getConnection();
         String maxStatement = "SELECT MAX(Ticket_Id) from Ticket_Table;";
@@ -102,10 +112,21 @@ public class NewTicketScreenController implements Initializable {
         rs.next();
         return rs.getInt(1) + 1;
     }
+
+    /**
+     * This method closes the new ticket screen when the close button is pressed.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void closeButtonPressed(ActionEvent actionEvent) throws IOException {
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
     }
 
+    /**
+     * This method initializes the new ticket screen with the correct data to display to the user.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         priorityLevelComboBox.setItems(DatabaseAccess.getTicketPriorityLevels());
