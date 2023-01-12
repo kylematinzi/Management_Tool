@@ -18,6 +18,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -67,11 +68,6 @@ public class AdminDashboardController implements Initializable {
     private RadioButton selectedProjectRadioButton;
     @FXML
     private ToggleGroup ticketToggleGroup;
-    private int projectId;
-    private String projectTitle;
-    private int ticketId;
-    private String ticketTitle;
-
 
 
     /**
@@ -94,7 +90,7 @@ public class AdminDashboardController implements Initializable {
     }
 
     /**
-     * This method opens a screen that shows all current users.
+     * This method opens the all users screen when the users button is pressed.
      * @param actionEvent
      * @throws IOException
      */
@@ -143,6 +139,11 @@ public class AdminDashboardController implements Initializable {
         }
     }
 
+    /**
+     * This method opens the new project window when the new project button is pressed.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void createNewProjectButtonPressed(ActionEvent actionEvent) throws IOException {
         StackPane newProjectParent = new StackPane();
         newProjectParent.getChildren().add(FXMLLoader.load(getClass().getResource("NewProjectScreen.fxml")));
@@ -157,6 +158,12 @@ public class AdminDashboardController implements Initializable {
         newProjectScene.show();
     }
 
+    /**
+     * This method will delete the selected project from the all projects' table on the admin dashboard when the delete
+     * project button is pressed.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void deleteProjectButtonPressed(ActionEvent actionEvent) throws IOException {
         //TODO need to create functionality that if you delete a project it deletes all corresponding tickets or gives
         // the option to leave the corresponding tickets as unassigned.
@@ -165,8 +172,8 @@ public class AdminDashboardController implements Initializable {
             String deleteStatement = "DELETE FROM Project_Table WHERE Project_Id = ?";
             DatabaseQuery.setPreparedStatement(conn, deleteStatement);
             Project deletingProject = allProjectsTable.getSelectionModel().getSelectedItem();
-            projectId = deletingProject.getProjectId();
-            projectTitle = deletingProject.getProjectTitle();
+            int projectId = deletingProject.getProjectId();
+            String projectTitle = deletingProject.getProjectTitle();
             PreparedStatement ps = DatabaseQuery.getPreparedStatement();
             if (deletingProject == null) {
                 Alert alert = new Alert(Alert.AlertType.WARNING, "No project selected for deletion.");
@@ -175,7 +182,7 @@ public class AdminDashboardController implements Initializable {
             } else {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "You are about to delete: "+"\n"
                         +"Project ID: "+ projectId +"\n"+
-                        "Project Title: "+projectTitle);
+                        "Project Title: "+ projectTitle);
                 alert.setTitle("Confirmation");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
@@ -191,18 +198,21 @@ public class AdminDashboardController implements Initializable {
         }
     }
 
-
+    /**
+     * This method will open a screen to display the details of the selected ticket on all tickets table from the
+     * admin dashboard screen.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void ticketDetailsButtonPressed(ActionEvent actionEvent) throws IOException {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("TicketDetailsScreen.fxml"));
             StackPane ticketDetailParent = new StackPane();
-            //projectDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("projectDashboard.fxml")));
             ticketDetailParent.getChildren().add(loader.load());
             Scene scene = new Scene(ticketDetailParent);
             Stage ticketDetailScreen = new Stage();
             ticketDetailScreen.setScene(scene);
-            //new line for initialize below
             TicketDetailsScreenController controller = loader.getController();
             controller.getInitializeData(allTicketsTable.getSelectionModel().getSelectedItem());
             ticketDetailScreen.initModality(Modality.WINDOW_MODAL);
@@ -218,9 +228,14 @@ public class AdminDashboardController implements Initializable {
         }
     }
 
+    /**
+     * This method will open a new screen to create a new ticket when the create new ticket button is pressed.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void createNewTicketButtonPressed(ActionEvent actionEvent) throws IOException {
         StackPane newTicketParent = new StackPane();
-        newTicketParent.getChildren().add(FXMLLoader.load(getClass().getResource("NewTicketScreen.fxml")));
+        newTicketParent.getChildren().add(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewTicketScreen.fxml"))));
         Scene scene = new Scene(newTicketParent);
         Stage newTicketScene = new Stage();
         newTicketScene.setScene(scene);
@@ -232,14 +247,20 @@ public class AdminDashboardController implements Initializable {
         newTicketScene.show();
     }
 
+    /**
+     * This method deletes the ticket selected on the admin dashboards all tickets table when the delete ticket button
+     * is pressed.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void deleteTicketButtonPressed(ActionEvent actionEvent) throws IOException {
         try{
             Connection conn = DatabaseConnection.getConnection();
             String deleteStatement = "DELETE FROM Ticket_Table WHERE Ticket_Id = ?";
             DatabaseQuery.setPreparedStatement(conn, deleteStatement);
             Ticket deletingTicket = allTicketsTable.getSelectionModel().getSelectedItem();
-            ticketId = deletingTicket.getTicketId();
-            ticketTitle = deletingTicket.getTicketTitle();
+            int ticketId = deletingTicket.getTicketId();
+            String ticketTitle = deletingTicket.getTicketTitle();
             PreparedStatement ps = DatabaseQuery.getPreparedStatement();
             if (deletingTicket == null) {
                 Alert alert = new Alert(Alert.AlertType.WARNING, "No ticket selected for deletion.");
@@ -248,7 +269,7 @@ public class AdminDashboardController implements Initializable {
             } else {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "You are about to delete: "+"\n"
                         +"Ticket ID: "+ ticketId +"\n"+
-                        "Ticket Title: "+ticketTitle);
+                        "Ticket Title: "+ ticketTitle);
                 alert.setTitle("Confirmation");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
@@ -269,15 +290,27 @@ public class AdminDashboardController implements Initializable {
         }
     }
 
-
+    /**
+     * This method will close the admin dashboard when the close button is pressed.
+     */
     public void closeButtonPressed(ActionEvent actionEvent) throws IOException {
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
     }
 
+    /**
+     * This method retrieves the selected project id from the selected project of the all projects table. Its primary
+     * function is to be used in order to find the tickets that correspond with the selected project and fill the
+     * selected tickets table.
+     * @return - selected projects id
+     */
     public int getSelectedProjectID(){
-        int projectID = allProjectsTable.getSelectionModel().getSelectedItem().getProjectId();
-        return projectID;
+        return allProjectsTable.getSelectionModel().getSelectedItem().getProjectId();
     }
+
+    /**
+     * This method will fill the ticket table will all the databases tickets when the all tickets radio button is selected.
+     * @param actionEvent
+     */
     public void allTicketsRadioButtonSelected(ActionEvent actionEvent){
         allTicketsTable.setItems(DatabaseAccess.getAllTickets());
         ticketIdColumn.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
@@ -288,6 +321,11 @@ public class AdminDashboardController implements Initializable {
         ticketDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("ticketDescription"));
     }
 
+    /**
+     * This method will fill the tickets table will only the tickets that correspond to the selected project when the
+     * selected project radio button is selected.
+     * @param actionEvent
+     */
     public void selectedProjectRadioButtonSelected(ActionEvent actionEvent){
         try {
             allTicketsTable.setItems(DatabaseAccess.getSelectedTickets(getSelectedProjectID()));
@@ -305,21 +343,29 @@ public class AdminDashboardController implements Initializable {
         }
     }
 
+    /**
+     * This method will refresh the project table after changes have been made, and it is called on.
+     */
     public void refreshAdminProjectTable(){
         allProjectsTable.setItems(DatabaseAccess.getAllProjects());
     }
 
+    /**
+     * This method will refresh the ticket table after changes have been made, and it is called on.
+     */
     public void refreshAdminTicketTable(){
         allTicketsTable.setItems(DatabaseAccess.getAllTickets());
     }
 
-
+    /**
+     * This method initializes the admin dashboard and fills it with the correct default data to display to the user.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         //project table
         allProjectsTable.setItems(DatabaseAccess.getAllProjects());
-        // cell factory values must be the same as in the project
         projectIdColumn.setCellValueFactory((new PropertyValueFactory<>("projectId")));
         projectTitleColumn.setCellValueFactory((new PropertyValueFactory<>("projectTitle")));
         startDateColumn.setCellValueFactory((new PropertyValueFactory<>("dateCreated")));
@@ -333,6 +379,5 @@ public class AdminDashboardController implements Initializable {
         ticketPriorityColumn.setCellValueFactory(new PropertyValueFactory<>("ticketPriorityLevel"));
         ticketStatusColumn.setCellValueFactory(new PropertyValueFactory<>("ticketStatusLevel"));
         ticketDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("ticketDescription"));
-
     }
 }
