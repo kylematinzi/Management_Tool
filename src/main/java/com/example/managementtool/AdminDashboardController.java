@@ -77,7 +77,7 @@ public class AdminDashboardController implements Initializable {
      */
     public void projectsButtonPressed(ActionEvent actionEvent) throws IOException {
         StackPane projectDashboardParent = new StackPane();
-        projectDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("allProjectsScreen.fxml")));
+        projectDashboardParent.getChildren().add(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("allProjectsScreen.fxml"))));
         Scene scene = new Scene(projectDashboardParent);
         Stage projectDashboardScene = new Stage();
         projectDashboardScene.setScene(scene);
@@ -96,7 +96,7 @@ public class AdminDashboardController implements Initializable {
      */
     public void usersButtonPressed(ActionEvent actionEvent) throws IOException {
         StackPane usersParent = new StackPane();
-        usersParent.getChildren().add(FXMLLoader.load(getClass().getResource("userDetailDashboard.fxml")));
+        usersParent.getChildren().add(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("userDetailDashboard.fxml"))));
         Scene scene = new Scene(usersParent);
         Stage newUsersScene = new Stage();
         newUsersScene.setScene(scene);
@@ -118,12 +118,10 @@ public class AdminDashboardController implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("projectDashboard.fxml"));
             StackPane projectDashboardParent = new StackPane();
-            //projectDashboardParent.getChildren().add(FXMLLoader.load(getClass().getResource("projectDashboard.fxml")));
             projectDashboardParent.getChildren().add(loader.load());
             Scene scene = new Scene(projectDashboardParent);
             Stage projectDashboardScene = new Stage();
             projectDashboardScene.setScene(scene);
-            //new line for initialize below
             ProjectDashboardController controller = loader.getController();
             controller.getInitializeData(allProjectsTable.getSelectionModel().getSelectedItem());
             projectDashboardScene.initModality(Modality.WINDOW_MODAL);
@@ -146,7 +144,7 @@ public class AdminDashboardController implements Initializable {
      */
     public void createNewProjectButtonPressed(ActionEvent actionEvent) throws IOException {
         StackPane newProjectParent = new StackPane();
-        newProjectParent.getChildren().add(FXMLLoader.load(getClass().getResource("NewProjectScreen.fxml")));
+        newProjectParent.getChildren().add(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewProjectScreen.fxml"))));
         Scene scene = new Scene(newProjectParent);
         Stage newProjectScene = new Stage();
         newProjectScene.setScene(scene);
