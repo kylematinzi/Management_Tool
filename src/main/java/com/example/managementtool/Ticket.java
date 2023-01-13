@@ -8,21 +8,25 @@ import java.time.LocalDate;
 public class Ticket {
 
     private int ticketId;
-
     private int projectAssociation;
-
     private String ticketTitle;
-
     private String ticketPriorityLevel;
-
     private String ticketStatusLevel;
-
     private LocalDate dateCreated;
-
     private LocalDate dateCompleted;
-
     private String ticketDescription;
 
+    /**
+     * This method is the constructor for the Ticket object.
+     * @param ticketId - ticket's id
+     * @param projectAssociation - ticket's project identifier
+     * @param ticketTitle - ticket's title
+     * @param ticketPriorityLevel - ticket's priority level (low, medium, high)
+     * @param ticketStatusLevel - ticket's status level (not started, in work, complete)
+     * @param dateCreated - ticket's creation date
+     * @param dateCompleted - ticket's completion date
+     * @param ticketDescription - ticket's description
+     */
     public Ticket(int ticketId, int projectAssociation, String ticketTitle, String ticketPriorityLevel, String ticketStatusLevel,
                   LocalDate dateCreated, LocalDate dateCompleted, String ticketDescription){
         this.ticketId = ticketId;
