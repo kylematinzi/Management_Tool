@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
- * This class is the screen controller for the all projects screen. This screen displays a list off all the projects held
+ * This class is the screen controller for the all projects screen. The screen displays a list off all the projects held
  * in the database, a pie chart to show the currently selected projects completion breakdown, the project's current
  * completion percentage, and the project's projected completion date.
  */
@@ -41,7 +41,7 @@ public class allProjectsScreenController implements Initializable {
     private static final ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
     /**
-     * This function gathers the data needed to fill the all projects screen pie chart.
+     * This method gathers the data needed to fill the all projects screen pie chart.
      * @return Data used to fill the all projects pie chart.
      */
     public static ObservableList<PieChart.Data> fillProjectsPieChart(int projectId) throws SQLException {
@@ -57,7 +57,7 @@ public class allProjectsScreenController implements Initializable {
     }
 
     /**
-     * This function is used to find which project the user has clicked on in the all projects table.
+     * This method is used to find which project the user has clicked on in the all projects table.
      * @param mouseEvent mouse click
      * @throws SQLException
      */
@@ -68,10 +68,21 @@ public class allProjectsScreenController implements Initializable {
         projectCompletionBar.setProgress((DatabaseAccess.projectCompletionPercentage(selectedProjectId)) / 100);
         completionPercentLabel.setText((int) DatabaseAccess.projectCompletionPercentage(selectedProjectId)+"%");
     }
+
+    /**
+     * This method closes the all projects screen when the close button is pressed.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void closeButtonPressed(ActionEvent actionEvent) throws IOException {
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
     }
 
+    /**
+     * This method initializes the all projects screen with the correct data to display to the user.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -81,13 +92,10 @@ public class allProjectsScreenController implements Initializable {
             projectIdColumn.setCellValueFactory((new PropertyValueFactory<>("projectId")));
             projectTitleColumn.setCellValueFactory((new PropertyValueFactory<>("projectTitle")));
             projectedDateLabel.setText(String.valueOf(allProjectsTableView.getSelectionModel().getSelectedItem().getDateCompleted()));
-            //Chart fill
             projectsPieChart.setData(fillProjectsPieChart(allProjectsTableView.getSelectionModel().getSelectedItem().getProjectId()));
             projectCompletionBar.setProgress((DatabaseAccess.projectCompletionPercentage(selectedProjectId)) / 100);
             completionPercentLabel.setText((int) DatabaseAccess.projectCompletionPercentage(selectedProjectId)+"%");
         }catch (Exception e){
-
         }
-
     }
 }
