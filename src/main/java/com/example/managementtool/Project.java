@@ -1,9 +1,5 @@
 package com.example.managementtool;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-
 import java.time.LocalDate;
 
 /**
@@ -12,23 +8,25 @@ import java.time.LocalDate;
 public class Project {
 
     private int projectId;
-
     private String projectTitle;
-
     private LocalDate dateCreated;
-
     private LocalDate dateCompleted;
-
     private String projectDescription;
 
-
+    /**
+     * This method is the constructor for the Project object.
+     * @param projectId - project's id
+     * @param projectTitle - project's title
+     * @param dateCreated - project's creation date
+     * @param dateCompleted - project's completion date
+     * @param projectDescription - project's description
+     */
     public Project(int projectId, String projectTitle, LocalDate dateCreated, LocalDate dateCompleted, String projectDescription){
         this.projectId = projectId;
         this.projectTitle = projectTitle;
         this.dateCreated = dateCreated;
         this.dateCompleted = dateCompleted;
         this.projectDescription = projectDescription;
-
     }
 
     public int getProjectId() {

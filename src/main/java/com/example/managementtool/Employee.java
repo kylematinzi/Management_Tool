@@ -35,8 +35,6 @@ public class Employee {
 
     }
 
-    // Below are the getters and setters for the employee class. I'm not going to comment each one as I find it pretty self-
-    // evident on what each one does.
     public int getEmployeeId() {
         return employeeId;
     }

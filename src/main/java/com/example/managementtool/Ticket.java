@@ -3,7 +3,7 @@ package com.example.managementtool;
 import java.time.LocalDate;
 
 /**
- * This class creates a ticket object.
+ * This class allows the creation of a ticket object.
  */
 public class Ticket {
 
