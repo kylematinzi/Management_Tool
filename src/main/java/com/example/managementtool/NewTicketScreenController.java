@@ -43,11 +43,8 @@ public class NewTicketScreenController implements Initializable {
     private TextField ticketTitleTextField;
     @FXML
     private TextArea ticketDescriptionTextArea;
-
     private final LocalDate defaultEndDate = LocalDate.parse("2050-01-01");
 
-    //TODO fix the radio button selection. Need to refresh both selected and all.
-    //TODO need to add input validation
 
     /**
      * This function creates a new ticket when the create ticket button is pressed. Upon pressing the button the function
@@ -56,6 +53,7 @@ public class NewTicketScreenController implements Initializable {
      * @param actionEvent
      * @throws SQLException
      */
+    //TODO need to add input validation
     public void createTicketButtonPressed(ActionEvent actionEvent) throws SQLException {
         Connection conn = DatabaseConnection.getConnection();
         String insertStatement = "INSERT INTO Ticket_Table(Ticket_Id, Project_Association, Ticket_Title, Priority_Level,"+
@@ -127,6 +125,7 @@ public class NewTicketScreenController implements Initializable {
      * @param url
      * @param resourceBundle
      */
+    //TODO fix the radio button selection. Need to refresh both selected and all.
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         priorityLevelComboBox.setItems(DatabaseAccess.getTicketPriorityLevels());
@@ -136,7 +135,6 @@ public class NewTicketScreenController implements Initializable {
             ticketIdTextField.setText(String.valueOf(createUniqueTicketId()));
         }
         catch (Exception e){
-
         }
     }
 }

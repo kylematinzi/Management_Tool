@@ -13,19 +13,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ProjectDashboardController implements Initializable {
 
-    private int count = 0;
     @FXML
     private Label projectTitleLabel;
     @FXML
@@ -45,9 +43,9 @@ public class ProjectDashboardController implements Initializable {
     @FXML
     private DatePicker projectedCompletionDatePicker;
     @FXML
-    private ListView teamMembersListView;
+    private ListView<Employee> teamMembersListView;
     @FXML
-    private ComboBox teamMemberComboBox;
+    private ComboBox<Employee> teamMemberComboBox;
     @FXML
     private Button viewTeamMemberButton;
     @FXML
@@ -74,19 +72,16 @@ public class ProjectDashboardController implements Initializable {
     private TableColumn<Ticket, String> ticketStatusColumn;
     @FXML
     private TableColumn<Ticket, String> ticketDescriptionColumn;
-
     @FXML
     private ProgressBar projectProgressBar;
-
     private Project selectedProject;
-    private int daysOpen;
-    private int ticketId;
-    private String ticketTitle;
-    private String projectTitle;
-    private LocalDate projectedCompletion;
-    private String projectDescription;
-    private int projectId;
 
+    /**
+     * This method updates the selected project in the database with the data provided by the user in the given entry
+     * fields when the save changes button is pressed.
+     * @param actionEvent
+     * @throws SQLException
+     */
     //TODO need to add input validation
     public void saveChangesButtonPressed(ActionEvent actionEvent) throws SQLException {
         try {
@@ -94,17 +89,17 @@ public class ProjectDashboardController implements Initializable {
             String updateStatement = "UPDATE Project_Table SET Project_Title = ?, Projected_Completion = ?, Project_Description = ? " +
                     "WHERE Project_Id = ?";
             DatabaseQuery.setPreparedStatement(conn, updateStatement);
-            projectTitle = projectTitleTextField.getText();
-            projectedCompletion = projectedCompletionDatePicker.getValue();
-            projectDescription = projectDescriptionTextArea.getText();
-            projectId = Integer.parseInt(projectIdLabel.getText());
+            String projectTitle = projectTitleTextField.getText();
+            LocalDate projectedCompletion = projectedCompletionDatePicker.getValue();
+            String projectDescription = projectDescriptionTextArea.getText();
+            int projectId = Integer.parseInt(projectIdLabel.getText());
             PreparedStatement ps = DatabaseQuery.getPreparedStatement();
             ps.setString(1, projectTitle);
             ps.setDate(2, Date.valueOf(projectedCompletion));
             ps.setString(3, projectDescription);
             ps.setInt(4, projectId);
             ps.execute();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Project Id: " + projectId+": "+projectTitle+ " has been updated.");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Project Id: " + projectId +": "+ projectTitle + " has been updated.");
             alert.setTitle("Confirmation");
             Optional<ButtonType> result = alert.showAndWait();
             ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
@@ -116,9 +111,14 @@ public class ProjectDashboardController implements Initializable {
 
     }
 
+    /**
+     * This method opens the new ticket screen when the add ticket button is pressed.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void addTicketButtonPressed(ActionEvent actionEvent) throws IOException {
         StackPane newTicketParent = new StackPane();
-        newTicketParent.getChildren().add(FXMLLoader.load(getClass().getResource("NewTicketScreen.fxml")));
+        newTicketParent.getChildren().add(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewTicketScreen.fxml"))));
         Scene scene = new Scene(newTicketParent);
         Stage newTicketScene = new Stage();
         newTicketScene.setScene(scene);
@@ -130,6 +130,10 @@ public class ProjectDashboardController implements Initializable {
         newTicketScene.show();
     }
 
+    /**
+     * This method opens the ticket details screen when the edit ticket button is pressed.
+     * @param actionEvent
+     */
     public void editTicketButtonPressed(ActionEvent actionEvent){
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -139,7 +143,6 @@ public class ProjectDashboardController implements Initializable {
             Scene scene = new Scene(ticketDetailParent);
             Stage ticketDetailScreen = new Stage();
             ticketDetailScreen.setScene(scene);
-            //new line for initialize below
             TicketDetailsScreenController controller = loader.getController();
             controller.getInitializeData(ticketTableView.getSelectionModel().getSelectedItem());
             ticketDetailScreen.initModality(Modality.WINDOW_MODAL);
@@ -155,14 +158,18 @@ public class ProjectDashboardController implements Initializable {
         }
     }
 
+    /**
+     * This method will prompt the user and then delete the selected ticket when the delete ticket button is pressed.
+     * @param actionEvent
+     */
     public void deleteTicketButtonPressed(ActionEvent actionEvent){
         try{
             Connection conn = DatabaseConnection.getConnection();
             String deleteStatement = "DELETE FROM Ticket_Table WHERE Ticket_Id = ?";
             DatabaseQuery.setPreparedStatement(conn, deleteStatement);
             Ticket deletingTicket = ticketTableView.getSelectionModel().getSelectedItem();
-            ticketId = deletingTicket.getTicketId();
-            ticketTitle = deletingTicket.getTicketTitle();
+            int ticketId = deletingTicket.getTicketId();
+            String ticketTitle = deletingTicket.getTicketTitle();
             PreparedStatement ps = DatabaseQuery.getPreparedStatement();
             if (deletingTicket == null) {
                 Alert alert = new Alert(Alert.AlertType.WARNING, "No ticket selected for deletion.");
@@ -171,7 +178,7 @@ public class ProjectDashboardController implements Initializable {
             } else {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "You are about to delete: "+"\n"
                         +"Ticket ID: "+ ticketId +"\n"+
-                        "Ticket Title: "+ticketTitle);
+                        "Ticket Title: "+ ticketTitle);
                 alert.setTitle("Confirmation");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
@@ -188,22 +195,33 @@ public class ProjectDashboardController implements Initializable {
         System.out.println("delete ticket button pressed");
     }
 
+    //TODO create method
     public void viewTeamMemberButtonPressed(ActionEvent actionEvent){
         System.out.println("view button pressed");
     }
 
+    //TODO create method
     public void removeTeamMemberButtonPressed(ActionEvent actionEvent){
         System.out.println("remove button pressed");
     }
 
+    //TODO create method
     public void addTeamMemberButtonPressed(ActionEvent actionEvent){
         System.out.println("add member button pressed");
     }
 
+    /**
+     * This method will close the project dashboard when the close button is pressed.
+     * @param actionEvent
+     */
     public void closeButtonPressed(ActionEvent actionEvent){
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
     }
 
+    /**
+     * This method initializes the project dashboard screen with the correct default data to display to the user when the
+     * screen is opened.
+     */
     public void getInitializeData(Project project) throws SQLException {
         selectedProject = project;
         projectProgressBar.setProgress(DatabaseAccess.projectCompletionPercentage(selectedProject.getProjectId())/100);
@@ -216,7 +234,7 @@ public class ProjectDashboardController implements Initializable {
         dateCreatedLabel.setText(project.getDateCreated().toString());
         projectDescriptionTextArea.setText(project.getProjectDescription());
         projectedCompletionDatePicker.setValue(project.getDateCompleted());
-        daysOpen = Period.between(project.getDateCreated(), LocalDate.now()).getDays();
+        int daysOpen = Period.between(project.getDateCreated(), LocalDate.now()).getDays();
         daysOpenLabel.setText(String.valueOf(daysOpen));
         ticketTableView.setItems(DatabaseAccess.getSelectedTickets(project.getProjectId()));
         ticketIdColumn.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
@@ -225,11 +243,20 @@ public class ProjectDashboardController implements Initializable {
         ticketDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("ticketDescription"));
     }
 
+    /**
+     * This method is used to refresh the ticket table.
+     */
     public void refreshProjectDashboardView(){
         ticketTableView.setItems(DatabaseAccess.getSelectedTickets(Integer.parseInt(projectIdLabel.getText())));
 
     }
 
+    /**
+     * This method is used to initialize the project dashboard controller and required because the class implements
+     * initializable. I have chosen to initialize the screen differently.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
