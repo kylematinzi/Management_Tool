@@ -13,21 +13,22 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * This class is the user detail dashboard screen controller. On this screen the user may add/edit/remove users.
+ */
 public class UserDetailDashboardController implements Initializable {
 
     @FXML
     private Button closeButton;
-
     @FXML Button viewUserButton;
-
     @FXML Button createUserButton;
     @FXML
     private TableView<Employee> allUsersTable;
@@ -43,11 +44,12 @@ public class UserDetailDashboardController implements Initializable {
     private TableColumn<Employee, String> jobTitleColumn;
     @FXML
     private TableColumn<Employee, String> emailAddressColumn;
-    private int employeeId;
-    private String employeeFirstName;
-    private String employeeLastName;
-    private int maxNumber;
 
+    /**
+     * This method will open the user detail screen for the selected user when the view user button is pressed.
+     * @param actionEvent
+     * @throws IOException
+     */
     //TODO create the user edit function.
     public void viewUserButtonPressed(ActionEvent actionEvent) throws IOException {
         try {
@@ -58,7 +60,6 @@ public class UserDetailDashboardController implements Initializable {
             Scene scene = new Scene(userDashboardParent);
             Stage userDetailScene = new Stage();
             userDetailScene.setScene(scene);
-            //new line for initialize below
             UserDetailsScreenController controller = loader.getController();
             controller.getInitializeData(allUsersTable.getSelectionModel().getSelectedItem());
             userDetailScene.initModality(Modality.WINDOW_MODAL);
@@ -74,9 +75,14 @@ public class UserDetailDashboardController implements Initializable {
         }
     }
 
+    /**
+     * This method will open the create new user screen when the create user button is pressed.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void createUserButtonPressed(ActionEvent actionEvent) throws IOException {
         StackPane userDetailParent = new StackPane();
-        userDetailParent.getChildren().add(FXMLLoader.load(getClass().getResource("createNewUserScreen.fxml")));
+        userDetailParent.getChildren().add(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("createNewUserScreen.fxml"))));
         Scene scene = new Scene(userDetailParent);
         Stage userDetailScene = new Stage();
         userDetailScene.setScene(scene);
@@ -88,27 +94,31 @@ public class UserDetailDashboardController implements Initializable {
         userDetailScene.show();
     }
 
+    /**
+     * This method will remove the selected user from the database by sending a delete query for the selected user to the
+     * database when the remove user button is pressed.
+     * I have disabled the ability to remove the admin user from the database.
+     * @param actionEvent
+     */
     public void removeUserButtonPressed(ActionEvent actionEvent){
         try{
             Connection conn = DatabaseConnection.getConnection();
             String deleteStatement = "DELETE FROM Employee_Table WHERE Employee_Id = ?";
             DatabaseQuery.setPreparedStatement(conn, deleteStatement);
             Employee deletingEmployee = allUsersTable.getSelectionModel().getSelectedItem();
-            employeeId = deletingEmployee.getEmployeeId();
-            employeeFirstName = deletingEmployee.getEmployeeFirstName();
-            employeeLastName = deletingEmployee.getEmployeeLastName();
+            int employeeId = deletingEmployee.getEmployeeId();
+            String employeeFirstName = deletingEmployee.getEmployeeFirstName();
+            String employeeLastName = deletingEmployee.getEmployeeLastName();
             PreparedStatement ps = DatabaseQuery.getPreparedStatement();
             if (deletingEmployee == null) {
                 Alert alert = new Alert(Alert.AlertType.WARNING, "No user selected for deletion.");
                 alert.setTitle("Empty Selection");
                 alert.showAndWait();
             } else {
-                // The admin id will not be removable
                 if(employeeId == 111111){
                     Alert alert = new Alert(Alert.AlertType.WARNING, "Admin may not be deleted.");
                     alert.setTitle("Warning");
                     Optional<ButtonType> result = alert.showAndWait();
-
                 }
                 else{
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "You are about to delete: " + "\n"
@@ -130,6 +140,11 @@ public class UserDetailDashboardController implements Initializable {
         }
     }
 
+    /**
+     * This method will close the user detail dashboard screen when the close button is pressed.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void closeButtonPressed(ActionEvent actionEvent) throws IOException {
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
     }
@@ -141,8 +156,12 @@ public class UserDetailDashboardController implements Initializable {
         allUsersTable.setItems(DatabaseAccess.getAllEmployees());
     }
 
-
-
+    /**
+     * This method initializes the user detail dashboard screen with the correct default data to display to the user
+     * on the user detail dashboard.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         allUsersTable.setItems(DatabaseAccess.getAllEmployees());
