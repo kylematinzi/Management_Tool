@@ -22,6 +22,11 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * This class is the screen controller for the admin dashboard screen. This screen allows the fullest use of the application.
+ * Through this screen the admin may add/update/remove employees, projects, and tickets. The admin can also view a complete
+ * breakdown of all projects in the database and their progress.
+ */
 public class AdminDashboardController implements Initializable {
 
     @FXML

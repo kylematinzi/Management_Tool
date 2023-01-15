@@ -1,6 +1,5 @@
 package com.example.managementtool;
 
-//import com.almasb.fxgl.net.Connection;
 import Utility.DatabaseConnection;
 import Utility.DatabaseQuery;
 import javafx.application.Application;
@@ -8,23 +7,29 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
 import java.sql.*;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
- * To start this project I am starting with the GUI screens. After that I will set up and connect a database
- * to hold all the data that will fill the screens. From there I will create the functions that will enable
- * manipulation of the data in various ways through the GUI.
- *
+ * This class is the main class of the application and where running the application starts. Throughout the application
+ * stack panes will be used to call upon new windows. I have chosen this method to prevent the user from interacting with
+ * any screen except the most recently called one. This will ensure the user cannot open a screen, move back to one that
+ * the new screen called on for data, change the data in the previous screen, and then making the data in the current screen
+ * incorrect.
  */
 //TODO Add docker
 public class ManagementToolMain extends Application {
+
+    /**
+     * This method is used to call on the first screen of the application, which is the login screen.
+     * @param primaryStage
+     * @throws IOException
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
-        // Using stackPane in order to disallow the user to interact with any screen except the
         StackPane stackRoot = new StackPane();
-        stackRoot.getChildren().add(FXMLLoader.load(getClass().getResource("LoginScreen.fxml")));
+        stackRoot.getChildren().add(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginScreen.fxml"))));
         Scene scene = new Scene(stackRoot);
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
@@ -33,6 +38,12 @@ public class ManagementToolMain extends Application {
         primaryStage.show();
     }
 
+    /**
+     * This method is the main method. This method starts and closes the connection with the database at the appropriate
+     * times.
+     * @param args
+     * @throws SQLException
+     */
     public static void main(String[] args) throws SQLException {
         DatabaseConnection.startConnection();
         Connection conn = DatabaseConnection.getConnection();
