@@ -5,7 +5,6 @@ import com.example.managementtool.Project;
 import com.example.managementtool.Ticket;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,8 +26,10 @@ public class DatabaseAccess {
     private static ObservableList<String> ticketPriorityLevels = FXCollections.observableArrayList();
     private static ObservableList<String> jobTitles = FXCollections.observableArrayList();
 
-    private static int uniqueEmployeeId = 100;
-
+    /**
+     * This method returns a list of all the projects in the database.
+     * @return - list of projects
+     */
     public static ObservableList<Project> getAllProjects() {
         allProjectsList.clear();
         try {
@@ -51,6 +52,10 @@ public class DatabaseAccess {
         return allProjectsList;
     }
 
+    /**
+     * This method returns a list of all the tickets in the database.
+     * @return - list of tickets
+     */
     public static ObservableList<Ticket> getAllTickets() {
         allTicketsList.clear();
         try {
@@ -77,6 +82,10 @@ public class DatabaseAccess {
         return allTicketsList;
     }
 
+    /**
+     * This method returns a list of all employees in the database.
+     * @return - list of employees
+     */
     public static ObservableList<Employee> getAllEmployees() {
         allEmployeesList.clear();
         try {
@@ -102,6 +111,11 @@ public class DatabaseAccess {
         return allEmployeesList;
     }
 
+    /**
+     * This method returns a list of tickets that are assigned to a selected project.
+     * @param projectId - project used to find tickets
+     * @return - list of tickets
+     */
     public static ObservableList<Ticket> getSelectedTickets(int projectId){
         selectedTicketsList.clear();
         try{
@@ -123,12 +137,15 @@ public class DatabaseAccess {
             }
             results.close();
         } catch (Exception throwables){
-            //Can switch exception to SQLException
             throwables.printStackTrace();
         }
         return selectedTicketsList;
     }
 
+    /**
+     * This method returns a list of all the project names in the database.
+     * @return - list of project names
+     */
     public static ObservableList<String> getAllProjectNames(){
         allProjectsList.clear();
         allProjectNames.clear();
@@ -139,6 +156,10 @@ public class DatabaseAccess {
         return allProjectNames;
     }
 
+    /**
+     * This method returns a list of all project ids in the database.
+     * @return - list of project ids
+     */
     public static ObservableList<Integer> getAllProjectId(){
         allProjectsList.clear();
         allProjectIds.clear();
@@ -149,7 +170,10 @@ public class DatabaseAccess {
         return allProjectIds;
     }
 
-
+    /**
+     * This method fills and returns a list with all possible ticket statuses.
+     * @return - list of ticket status types
+     */
     public static ObservableList<String> getTicketStatusTypes() {
         ticketStatusTypes.clear();
         ticketStatusTypes.add("Not Started");
@@ -158,6 +182,10 @@ public class DatabaseAccess {
         return ticketStatusTypes;
     }
 
+    /**
+     * This method fills and returns a list with all possible ticket priorities.
+     * @return - list of ticket priority types
+     */
     public static ObservableList<String> getTicketPriorityLevels(){
         ticketPriorityLevels.clear();
         ticketPriorityLevels.add("Low");
@@ -166,6 +194,10 @@ public class DatabaseAccess {
         return ticketPriorityLevels;
     }
 
+    /**
+     * This method fills and returns a list with all possible employee job titles.
+     * @return - list of job titles
+     */
     public static ObservableList<String> getJobTitles(){
         jobTitles.clear();
         jobTitles.add("Developer");
@@ -176,6 +208,12 @@ public class DatabaseAccess {
         return  jobTitles;
     }
 
+    /**
+     * This method queries the database to calculate how many tickets are in the database assigned to a selected project.
+     * @param projectId - project whose tickets are being counted
+     * @return - total amount of tickets
+     * @throws SQLException
+     */
     public static int countAllTickets(int projectId) throws SQLException {
         Connection conn = DatabaseConnection.getConnection();
         String countStatement = "SELECT COUNT(*) as Counted FROM Ticket_Table WHERE Project_Association = ?;";
@@ -188,6 +226,13 @@ public class DatabaseAccess {
         return countNumber;
     }
 
+    /**
+     * This method queries the database to calculate how many not started tickets are in the database assigned to a selected
+     * project.
+     * @param projectId - project whose not started tickets are being counted
+     * @return - total number of not started tickets
+     * @throws SQLException
+     */
     public static int countNotStartedTickets(int projectId) throws SQLException {
         Connection conn = DatabaseConnection.getConnection();
         String countStatement = "SELECT COUNT(*) as Counted FROM Ticket_Table WHERE Ticket_Status = 'Not Started' && Project_Association = ?;";
@@ -199,6 +244,14 @@ public class DatabaseAccess {
         int countNumber = rs.getInt(1);
         return countNumber;
     }
+
+    /**
+     * This method queries the database to calculate how many in work tickets are in the database assigned to a selected
+     * project.
+     * @param projectId - project whose in work tickets are being counted
+     * @return - total number of in work tickets
+     * @throws SQLException
+     */
     public static int countInWorkTickets(int projectId) throws SQLException {
         Connection conn = DatabaseConnection.getConnection();
         String countStatement = "SELECT COUNT(*) as Counted FROM Ticket_Table WHERE Ticket_Status = 'In Work' && Project_Association = ?;";
@@ -211,6 +264,13 @@ public class DatabaseAccess {
         return countNumber;
     }
 
+    /**
+     * This method queries the database to calculate how many complete tickets are in the database assigned to a selected
+     * project.
+     * @param projectId - project whose complete tickets are being counted
+     * @return - total number of complete tickets
+     * @throws SQLException
+     */
     public static int countCompletedTickets(int projectId) throws SQLException {
         Connection conn = DatabaseConnection.getConnection();
         String countStatement = "SELECT COUNT(*) as Counted FROM Ticket_Table WHERE Ticket_Status = 'Complete' && Project_Association = ?;";
@@ -223,6 +283,12 @@ public class DatabaseAccess {
         return countNumber;
     }
 
+    /**
+     * This method calculates the selected projects current completion percentage out of 100.
+     * @param projectId - selected project
+     * @return - projects current completion percentage.
+     * @throws SQLException
+     */
     public static float projectCompletionPercentage(int projectId) throws SQLException {
         float allTickets, completedTickets, projectPercentage;
         allTickets = countAllTickets(projectId);
@@ -230,10 +296,6 @@ public class DatabaseAccess {
         projectPercentage = Math.round((completedTickets/allTickets) * 100);
         return projectPercentage;
     }
-
-
-
-
 }
 
 
