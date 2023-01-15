@@ -22,6 +22,10 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * This class is the project dashboard screen controller. Through this screen a user can add/update/remove project details
+ * and team members.
+ */
 public class ProjectDashboardController implements Initializable {
 
     @FXML
